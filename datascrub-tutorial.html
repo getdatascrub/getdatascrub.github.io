@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataScrub Tutorial - Complete Guide to Cleaning Excel Data</title>
+  <meta name="description" content="Step-by-step tutorial for DataScrub Excel add-in. Learn how to use 55+ data cleaning tools including Health Scan, text cleaning, deduplication, imports, and more.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.7; }
+    a { color: #0d7377; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      background: #0a5c5f; padding: 14px 20px; text-align: center;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav a { color: rgba(255,255,255,0.85); margin: 0 16px; font-size: 14px; font-weight: 600; }
+    .nav a:hover { color: white; text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 40%, #0d7377 100%);
+      color: white; padding: 56px 20px; text-align: center;
+    }
+    .hero h1 { font-size: 38px; font-weight: 800; margin-bottom: 10px; }
+    .hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+    /* Layout */
+    .content { max-width: 860px; margin: 0 auto; padding: 48px 20px; }
+
+    /* Table of Contents */
+    .toc {
+      background: #f7fafa; border: 1px solid #e0eded; border-radius: 12px;
+      padding: 28px 32px; margin-bottom: 48px;
+    }
+    .toc h2 { font-size: 20px; color: #0d7377; margin-bottom: 14px; }
+    .toc ol { margin-left: 20px; }
+    .toc li { padding: 4px 0; font-size: 15px; }
+    .toc li a { font-weight: 600; }
+
+    /* Section */
+    .tutorial-section { margin-bottom: 56px; scroll-margin-top: 80px; }
+    .tutorial-section h2 {
+      font-size: 28px; color: #0d7377; margin-bottom: 8px;
+      padding-bottom: 8px; border-bottom: 2px solid #e0eded;
+    }
+    .tutorial-section h3 { font-size: 20px; color: #1a1a2e; margin: 24px 0 8px; }
+    .tutorial-section p { font-size: 15px; color: #333; margin-bottom: 14px; }
+    .tutorial-section ul, .tutorial-section ol { margin-left: 20px; margin-bottom: 16px; }
+    .tutorial-section li { font-size: 15px; color: #333; margin-bottom: 6px; }
+
+    /* Screenshot */
+    .screenshot {
+      margin: 20px 0 28px; border-radius: 10px; overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12); border: 1px solid #e0eded;
+    }
+    .screenshot img { width: 100%; display: block; }
+    .screenshot-caption {
+      background: #f7fafa; padding: 10px 16px; font-size: 13px; color: #555;
+      border-top: 1px solid #e0eded; font-style: italic;
+    }
+
+    /* Tip box */
+    .tip {
+      background: #e8f5f5; border-left: 4px solid #0d7377; border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 16px 0 20px; font-size: 14px;
+    }
+    .tip strong { color: #0d7377; }
+
+    /* Warning box */
+    .warning {
+      background: #fff8e1; border-left: 4px solid #f5a623; border-radius: 0 8px 8px 0;
+      padding: 16px 20px; margin: 16px 0 20px; font-size: 14px;
+    }
+    .warning strong { color: #e65100; }
+
+    /* Steps */
+    .how-to { background: #f7fafa; border-radius: 10px; padding: 20px 24px; margin: 16px 0 20px; }
+    .how-to h4 { font-size: 16px; color: #0d7377; margin-bottom: 10px; }
+    .how-to ol { margin-left: 20px; }
+    .how-to li { padding: 4px 0; font-size: 14px; }
+
+    /* Code / keyboard */
+    kbd {
+      background: #e8efef; padding: 2px 8px; border-radius: 4px; font-size: 13px;
+      font-family: 'Consolas', monospace; border: 1px solid #d0dede;
+    }
+
+    /* Feature table */
+    .feature-table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 14px; }
+    .feature-table th {
+      background: #0d7377; color: white; padding: 10px 14px; text-align: left; font-weight: 600;
+    }
+    .feature-table td { padding: 10px 14px; border-bottom: 1px solid #e8efef; }
+    .feature-table tr:hover { background: #f7fafa; }
+    .severity-high { color: #d32f2f; font-weight: 600; }
+    .severity-medium { color: #f57c00; font-weight: 600; }
+    .severity-low { color: #388e3c; font-weight: 600; }
+
+    /* CTA bar */
+    .cta-bar {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
+      color: white; text-align: center; padding: 48px 20px; margin-top: 48px;
+    }
+    .cta-bar h2 { font-size: 26px; margin-bottom: 8px; color: white; }
+    .cta-bar p { font-size: 16px; opacity: 0.9; margin-bottom: 20px; }
+    .cta-bar .buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 12px 28px; border-radius: 8px; font-size: 15px;
+      font-weight: 700; cursor: pointer; border: none; text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-decoration: none; }
+    .btn-white { background: #fff; color: #0d7377; }
+    .btn-ghost { background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.5); }
+
+    /* Footer */
+    .footer {
+      background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 20px;
+      text-align: center; font-size: 14px;
+    }
+    .footer-links { margin-bottom: 16px; }
+    .footer-links a { color: rgba(255,255,255,0.7); margin: 0 12px; }
+    .footer-links a:hover { color: white; }
+
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 28px; }
+      .content { padding: 32px 16px; }
+      .tutorial-section h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="datascrub.html">DataScrub</a>
+    <a href="nonprofitreports.html">NonprofitReports</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="support.html">Support</a>
+    <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" style="background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:6px;">Download</a>
+    <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" style="background:#fff;color:#0a5c5f;padding:6px 16px;border-radius:6px;">Buy</a>
+  </nav>
+
+  <header class="hero">
+    <h1>DataScrub Tutorial</h1>
+    <p>A complete guide to cleaning, transforming, and importing data in Excel with DataScrub's 55+ tools.</p>
+  </header>
+
+  <div class="content">
+
+    <!-- TABLE OF CONTENTS -->
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#getting-started">Getting Started</a></li>
+        <li><a href="#health-scan">Data Health Scan</a></li>
+        <li><a href="#text-cleaning">Text Cleaning</a></li>
+        <li><a href="#numbers">Number Tools</a></li>
+        <li><a href="#dates">Date &amp; Time Tools</a></li>
+        <li><a href="#data-quality">Data Quality &amp; Deduplication</a></li>
+        <li><a href="#import">Import (CSV, PDF, Word)</a></li>
+        <li><a href="#batch">Batch Clean &amp; Quick Clean</a></li>
+        <li><a href="#tips">Tips &amp; Best Practices</a></li>
+      </ol>
+    </nav>
+
+    <!-- ===== 1. GETTING STARTED ===== -->
+    <section class="tutorial-section" id="getting-started">
+      <h2>1. Getting Started</h2>
+
+      <h3>Installation</h3>
+      <div class="how-to">
+        <h4>How to install DataScrub:</h4>
+        <ol>
+          <li>Download the <strong>DataScrub64-packed.xll</strong> file</li>
+          <li>Double-click the file — Excel will open and load the add-in</li>
+          <li>Look for the <strong>DATA SCRUB</strong> tab in the Excel ribbon</li>
+        </ol>
+      </div>
+
+      <div class="tip">
+        <strong>Tip:</strong> To make DataScrub load automatically every time you open Excel, go to <kbd>File</kbd> > <kbd>Options</kbd> > <kbd>Add-ins</kbd> > set Manage to <kbd>Excel Add-ins</kbd> > click <kbd>Go</kbd> > click <kbd>Browse</kbd> and select the .xll file.
+      </div>
+
+      <h3>The Ribbon</h3>
+      <p>Once installed, you'll see a <strong>DATA SCRUB</strong> tab in your Excel ribbon. All 55+ tools are organized into groups:</p>
+
+      <div class="screenshot">
+        <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab showing all tool groups">
+        <div class="screenshot-caption">The DATA SCRUB ribbon tab with tools organized by category: Undo, Scan, Text, Numbers, Dates, Cleanup, Contacts, Import, and License.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Ribbon Group</th><th>What It Does</th><th>Key Tools</th></tr>
+        <tr><td><strong>Undo</strong></td><td>Reverse any DataScrub operation</td><td>Undo</td></tr>
+        <tr><td><strong>Scan</strong></td><td>Diagnose data quality issues</td><td>Health Scan</td></tr>
+        <tr><td><strong>Text</strong></td><td>Clean and transform text values</td><td>Trim Spaces, Strip Chars, Change Case, Add Text, Split, Join, Rearrange, Parse, Create, Count</td></tr>
+        <tr><td><strong>Numbers</strong></td><td>Fix and format numeric data</td><td>Insert, Quick Calc, Analyze, Transform, Convert, Calculate, Smart Fix</td></tr>
+        <tr><td><strong>Dates</strong></td><td>Parse and standardize dates</td><td>Extract, Text &rarr; Date</td></tr>
+        <tr><td><strong>Cleanup</strong></td><td>Remove unwanted data</td><td>Remove Chars, Dedup, Clean HTML, Values, Remove Blanks, Unmerge, Fill, Find, Replace+</td></tr>
+        <tr><td><strong>Contacts</strong></td><td>Format contact information</td><td>Smart Fill, Standardize, Validate Emails, Format Phones, Split Names, Split Address, Normalize Country, Clean URLs</td></tr>
+        <tr><td><strong>Import</strong></td><td>Bring in external data</td><td>Import (CSV, PDF, Word)</td></tr>
+      </table>
+
+      <h3>Basic Workflow</h3>
+      <p>Every DataScrub tool follows the same simple pattern:</p>
+      <div class="how-to">
+        <h4>The 3-step workflow:</h4>
+        <ol>
+          <li><strong>Select</strong> the cells or columns you want to clean</li>
+          <li><strong>Click</strong> the tool you want from the DATA SCRUB ribbon</li>
+          <li><strong>Done</strong> — your data is cleaned in place. Use <strong>Undo</strong> if you need to revert.</li>
+        </ol>
+      </div>
+
+      <div class="tip">
+        <strong>Tip:</strong> You can select entire columns by clicking the column header (A, B, C...). DataScrub will process all non-empty cells in the selection.
+      </div>
+    </section>
+
+    <!-- ===== 2. DATA HEALTH SCAN ===== -->
+    <section class="tutorial-section" id="health-scan">
+      <h2>2. Data Health Scan</h2>
+
+      <p>The <strong>Health Scan</strong> is the best place to start with any new dataset. It analyzes your entire selection and reports every quality issue it finds — extra spaces, text-formatted numbers, formula errors, blanks, duplicates, and hidden characters — all in one pass.</p>
+
+      <div class="screenshot">
+        <img src="HealthScan.png" alt="Data Health Scan dialog showing scan results with issue categories, counts, severity, and descriptions">
+        <div class="screenshot-caption">The Data Health Scan analyzed 8.1 million cells and found 5.5 million issues. Health score: 32%. Each issue category shows count, severity, and description.</div>
+      </div>
+
+      <h3>How to Run a Health Scan</h3>
+      <div class="how-to">
+        <h4>Steps:</h4>
+        <ol>
+          <li>Select the data range you want to scan (or press <kbd>Ctrl+A</kbd> to select all)</li>
+          <li>Click <strong>Health Scan</strong> on the DATA SCRUB ribbon tab</li>
+          <li>The scan runs and displays a results dialog with your data's health score</li>
+        </ol>
+      </div>
+
+      <h3>Understanding the Results</h3>
+      <p>The Health Scan reports a <strong>Health Score</strong> (0–100%) based on how many issues it finds relative to your total cell count. Each issue is categorized with a severity level:</p>
+
+      <table class="feature-table">
+        <tr><th>Issue Category</th><th>Severity</th><th>What It Means</th></tr>
+        <tr><td><strong>Extra Spaces</strong></td><td class="severity-medium">Medium</td><td>Leading, trailing, or multiple consecutive spaces in text. These cause lookup failures and mismatched joins. Click to fix with <strong>Trim Spaces</strong>.</td></tr>
+        <tr><td><strong>Text-Formatted Numbers</strong></td><td class="severity-high">High</td><td>Numbers stored as text (left-aligned, green triangle). SUM, VLOOKUP, and other formulas will silently skip these cells. Click to fix with <strong>Values</strong> or <strong>Smart Fix</strong>.</td></tr>
+        <tr><td><strong>Formula Errors</strong></td><td class="severity-high">High</td><td>#REF!, #VALUE!, #N/A, #DIV/0!, and other error values. Review and fix the source formulas, or use <strong>Smart Fix</strong> to replace errors with blanks or zeros.</td></tr>
+        <tr><td><strong>Empty Cells</strong></td><td class="severity-low">Low</td><td>Blank cells in your selection. Use <strong>Remove Blanks</strong> to delete blank rows, or <strong>Fill</strong> to fill gaps with the value above.</td></tr>
+        <tr><td><strong>Duplicate Values</strong></td><td class="severity-medium">Medium</td><td>Repeated values (excluding the first occurrence). Use <strong>Dedup</strong> to highlight or remove duplicates.</td></tr>
+        <tr><td><strong>Hidden Characters</strong></td><td class="severity-high">High</td><td>Non-printable characters, non-breaking spaces, zero-width characters. Invisible but break lookups and matching. Click to fix with <strong>Strip Chars</strong> or <strong>Clean HTML</strong>.</td></tr>
+      </table>
+
+      <h3>Fixing Issues</h3>
+      <p>After reviewing the scan results, you have two options:</p>
+      <ul>
+        <li><strong>Fix Selected</strong> — Check the categories you want to fix and click "Fix Selected". DataScrub will automatically apply the appropriate cleaning tool for each issue type.</li>
+        <li><strong>Fix manually</strong> — Close the dialog and use individual tools from the ribbon to address specific issues with more control.</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Tip:</strong> Run the Health Scan again after fixing issues to verify your data quality improved. Aim for a score of 90% or higher before using data in reports or analysis.
+      </div>
+
+      <div class="warning">
+        <strong>Note:</strong> The Health Scan is read-only until you click "Fix Selected". Simply running the scan does not modify your data.
+      </div>
+    </section>
+
+    <!-- ===== 3. TEXT CLEANING ===== -->
+    <section class="tutorial-section" id="text-cleaning">
+      <h2>3. Text Cleaning</h2>
+
+      <p>The <strong>Text</strong> group is the largest set of tools in DataScrub. These tools clean, transform, split, and restructure text data without formulas.</p>
+
+      <h3>Trim Spaces</h3>
+      <p>Removes leading spaces, trailing spaces, and reduces multiple consecutive spaces to a single space. This is the #1 most common data quality issue — invisible spaces that break VLOOKUP, MATCH, and pivot table groupings.</p>
+
+      <div class="screenshot">
+        <img src="Trim spaces.png" alt="Trim Spaces dropdown showing 6 whitespace cleaning options">
+        <div class="screenshot-caption">The Trim Spaces dropdown offers 6 targeted options: trim leading/trailing, remove extra spaces, remove all spaces, non-breaking spaces, line breaks, or clean all whitespace at once.</div>
+      </div>
+
+      <p>Click the <strong>Trim Spaces</strong> dropdown arrow to choose exactly what type of whitespace to clean:</p>
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Does</th><th>When to Use</th></tr>
+        <tr><td><strong>Trim leading_trailing</strong></td><td>Removes spaces from the start and end of each cell</td><td>Most common — fixes VLOOKUP mismatches</td></tr>
+        <tr><td><strong>Remove extra spaces</strong></td><td>Reduces multiple spaces to one (e.g., "John &nbsp; Smith" &rarr; "John Smith")</td><td>Names and addresses with inconsistent spacing</td></tr>
+        <tr><td><strong>Remove all spaces</strong></td><td>Strips every space character</td><td>ID numbers, codes, phone numbers where no spaces are wanted</td></tr>
+        <tr><td><strong>Remove non-breaking spaces</strong></td><td>Removes &amp;nbsp; characters (char 160) that look like spaces but aren't</td><td>Data pasted from websites or HTML emails</td></tr>
+        <tr><td><strong>Remove line breaks</strong></td><td>Strips carriage returns and newlines within cells</td><td>Multi-line cells that should be single-line</td></tr>
+        <tr><td><strong>Clean all whitespace</strong></td><td>Does everything above in one pass</td><td>When you just want it all gone — the "nuclear option"</td></tr>
+      </table>
+
+      <div class="how-to">
+        <h4>How to use:</h4>
+        <ol>
+          <li>Select the cells or columns with extra spaces</li>
+          <li>Click <strong>Trim Spaces</strong> on the ribbon (or click the dropdown arrow for specific options)</li>
+          <li>Spaces are removed instantly — check the status bar for a count of cells cleaned</li>
+        </ol>
+      </div>
+
+      <h3>Strip Chars</h3>
+      <p>Removes specific character types from your selection. Options include:</p>
+      <ul>
+        <li><strong>Non-printable characters</strong> — control characters, line breaks, tabs</li>
+        <li><strong>Numbers from text</strong> — strips all digits (useful for extracting names from "John123")</li>
+        <li><strong>Letters from text</strong> — strips all letters (useful for extracting numbers from "Order#12345")</li>
+        <li><strong>Special characters</strong> — removes punctuation and symbols</li>
+        <li><strong>Custom characters</strong> — specify exactly which characters to remove</li>
+      </ul>
+
+      <h3>Change Case</h3>
+      <p>Converts text between case formats:</p>
+      <ul>
+        <li><strong>UPPER CASE</strong> — "john smith" becomes "JOHN SMITH"</li>
+        <li><strong>lower case</strong> — "JOHN SMITH" becomes "john smith"</li>
+        <li><strong>Title Case</strong> — "john smith" becomes "John Smith"</li>
+        <li><strong>Sentence case</strong> — "hello world. goodbye world." becomes "Hello world. Goodbye world."</li>
+      </ul>
+
+      <h3>Add Text</h3>
+      <p>Prepends or appends text to every cell in your selection. Useful for adding prefixes (like "INV-") or suffixes (like "@company.com") to a column of values.</p>
+
+      <h3>Split</h3>
+      <p>Splits cell contents into multiple columns based on a delimiter (comma, space, dash, custom). For example, splitting "Smith, John" into separate Last Name and First Name columns.</p>
+
+      <h3>Join</h3>
+      <p>The opposite of Split — combines multiple columns into one, with a delimiter of your choice. For example, joining First Name + Last Name with a space separator.</p>
+
+      <h3>Rearrange</h3>
+      <p>Reorders parts of text within each cell. Common use: converting "Smith, John" to "John Smith" without splitting into separate columns.</p>
+
+      <h3>Parse</h3>
+      <p>Extracts structured data from unstructured text using pattern recognition. Can pull out emails, phone numbers, dates, URLs, and other patterns from free-text fields.</p>
+
+      <h3>Create</h3>
+      <p>Generates new data based on patterns — sequential IDs, random values, repeated sequences, or template-based text.</p>
+
+      <h3>Count</h3>
+      <p>Counts characters, words, or specific patterns in each cell and writes the count to an adjacent column. Useful for data validation (e.g., ensuring phone numbers have exactly 10 digits).</p>
+
+      <div class="tip">
+        <strong>Tip:</strong> Most text tools work on the selected cells only. If you want to clean an entire column, click the column header first to select all cells in that column.
+      </div>
+    </section>
+
+    <!-- ===== 4. NUMBERS ===== -->
+    <section class="tutorial-section" id="numbers">
+      <h2>4. Number Tools</h2>
+
+      <p>The <strong>Numbers</strong> group fixes, formats, and transforms numeric data. The most common issue: numbers stored as text that silently break SUM, AVERAGE, and other calculations.</p>
+
+      <h3>Quick Calc</h3>
+      <p>Performs quick arithmetic on your selection without writing formulas. Options include: add, subtract, multiply, divide by a value, round to N decimal places, and percentage calculations. The results replace the original values in place.</p>
+
+      <h3>Convert</h3>
+      <p>Converts between units — temperature (F/C), distance (miles/km), weight (lbs/kg), currency formatting, and more.</p>
+
+      <h3>Calculate</h3>
+      <p>Evaluates text expressions as math. If a cell contains "2+3*4", Calculate will replace it with "14". Useful for imported data that contains formulas as plain text.</p>
+
+      <h3>Smart Fix</h3>
+      <p>Automatically detects and fixes the most common number issues:</p>
+      <ul>
+        <li>Converts text-formatted numbers to real numbers</li>
+        <li>Removes currency symbols and thousand separators</li>
+        <li>Fixes negative number formats (parentheses to minus sign)</li>
+        <li>Replaces formula errors (#N/A, #REF!) with blanks or zeros</li>
+      </ul>
+
+      <h3>Transform</h3>
+      <p>Applies mathematical transformations: absolute value, round up/down, floor/ceiling, logarithm, square root, and power functions.</p>
+
+      <h3>Analyze</h3>
+      <p>Generates summary statistics for your selection: count, sum, average, min, max, median, standard deviation, and percentiles. Results are displayed in a dialog and can be inserted into your worksheet.</p>
+
+      <div class="tip">
+        <strong>Tip:</strong> If your SUM formula returns 0 but the cells clearly have numbers, they're probably text-formatted. Select the range and click <strong>Smart Fix</strong> — it will convert them to real numbers instantly.
+      </div>
+    </section>
+
+    <!-- ===== 5. DATES ===== -->
+    <section class="tutorial-section" id="dates">
+      <h2>5. Date &amp; Time Tools</h2>
+
+      <p>The <strong>Dates</strong> group handles the most frustrating Excel problem: dates stored as text that won't sort, filter, or calculate correctly.</p>
+
+      <h3>Text &rarr; Date</h3>
+      <p>Converts text strings to proper Excel date values. Handles dozens of formats automatically:</p>
+      <ul>
+        <li>"01/15/2024", "15-Jan-2024", "January 15, 2024"</li>
+        <li>"2024-01-15" (ISO format)</li>
+        <li>"15.01.2024" (European format)</li>
+        <li>"20240115" (compact format)</li>
+      </ul>
+      <p>DataScrub auto-detects the format. If it can't determine whether "01/02/2024" is January 2 or February 1, it will ask you to confirm the format.</p>
+
+      <h3>Extract</h3>
+      <p>Pulls out date components into separate columns: year, month, day, quarter, week number, day of week, or time components (hour, minute, second). Useful for building pivot table groupings.</p>
+
+      <div class="tip">
+        <strong>Tip:</strong> If dates display as 5-digit numbers (like 45307), the cells are formatted as "General" instead of "Date". Right-click > Format Cells > Date to display them correctly. The underlying value is correct.
+      </div>
+    </section>
+
+    <!-- ===== 6. DATA QUALITY ===== -->
+    <section class="tutorial-section" id="data-quality">
+      <h2>6. Data Quality &amp; Deduplication</h2>
+
+      <p>The <strong>Cleanup</strong> group removes unwanted data and fixes structural issues in your spreadsheet.</p>
+
+      <h3>Dedup (Remove Duplicates)</h3>
+      <p>DataScrub's deduplication goes beyond Excel's built-in "Remove Duplicates":</p>
+      <ul>
+        <li><strong>Highlight duplicates</strong> — color-code duplicates without deleting (for review first)</li>
+        <li><strong>Remove duplicates</strong> — delete duplicate rows, keeping the first or last occurrence</li>
+        <li><strong>Multi-column matching</strong> — find duplicates based on one or more key columns</li>
+        <li><strong>Fuzzy matching</strong> — catch near-duplicates like "John Smith" vs "Jon Smith"</li>
+      </ul>
+
+      <h3>Remove Blanks</h3>
+      <p>Deletes entire rows where the selected column(s) are empty. Also can remove blank cells and shift remaining data up.</p>
+
+      <h3>Fill</h3>
+      <p>Fills empty cells with the value from the cell above. Essential for "merged cell" style data where a category label appears once and the rows below are blank.</p>
+
+      <h3>Unmerge</h3>
+      <p>Unmerges all merged cells in the selection and fills the resulting blank cells with the merged value. Merged cells are the #1 cause of broken sorting, filtering, and pivot tables.</p>
+
+      <h3>Values</h3>
+      <p>Converts formulas to their current values (paste-as-values in one click). Also converts text-formatted numbers to real numbers.</p>
+
+      <h3>Clean HTML</h3>
+      <p>Strips HTML tags, entities (&amp;amp;, &amp;nbsp;, etc.), and embedded formatting from text. Essential when you've pasted data from a website or email.</p>
+
+      <h3>Find &amp; Replace+</h3>
+      <p>An enhanced find-and-replace with:</p>
+      <ul>
+        <li><strong>Regex support</strong> — use regular expressions for complex pattern matching</li>
+        <li><strong>Multi-replace</strong> — define multiple find/replace pairs and run them all at once</li>
+        <li><strong>Saved presets</strong> — save your common replacements for reuse</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Tip:</strong> Always run <strong>Trim Spaces</strong> before <strong>Dedup</strong>. Two cells that look identical might have different trailing spaces, causing the dedup to miss them.
+      </div>
+    </section>
+
+    <!-- ===== 7. IMPORT ===== -->
+    <section class="tutorial-section" id="import">
+      <h2>7. Import (CSV, PDF, Word)</h2>
+
+      <p>The <strong>Import</strong> tool brings external data directly into your Excel worksheet from multiple file formats.</p>
+
+      <h3>CSV Import</h3>
+      <p>Imports CSV and TSV files with automatic delimiter detection. Handles encoding issues (UTF-8, ANSI, etc.) and preserves leading zeros in ID columns.</p>
+
+      <h3>PDF Import</h3>
+      <p>Extracts tables from PDF files into Excel. Uses intelligent table detection to identify rows, columns, and headers. Works with:</p>
+      <ul>
+        <li>Bank statements</li>
+        <li>Invoices with line items</li>
+        <li>Financial reports</li>
+        <li>Any PDF with tabular data</li>
+      </ul>
+
+      <h3>Word Import</h3>
+      <p>Extracts tables from Word documents (.docx) directly into Excel cells, preserving the table structure.</p>
+
+      <div class="how-to">
+        <h4>How to import a file:</h4>
+        <ol>
+          <li>Click the cell where you want the imported data to start</li>
+          <li>Click <strong>Import</strong> on the DATA SCRUB ribbon</li>
+          <li>Select the file type (CSV, PDF, or Word)</li>
+          <li>Browse and select your file</li>
+          <li>Preview the data and adjust settings if needed</li>
+          <li>Click <strong>Import</strong> — the data lands in your worksheet</li>
+        </ol>
+      </div>
+
+      <div class="tip">
+        <strong>Tip:</strong> After importing, run a <strong>Health Scan</strong> to check the quality of the imported data. Imports from PDF are especially prone to text-formatted numbers and merged fields.
+      </div>
+    </section>
+
+    <!-- ===== 8. BATCH CLEAN ===== -->
+    <section class="tutorial-section" id="batch">
+      <h2>8. Batch Clean &amp; Quick Clean</h2>
+
+      <p>For repetitive cleaning tasks, DataScrub lets you chain multiple tools together and run them in one click.</p>
+
+      <h3>Batch Clean</h3>
+      <p>Build a multi-step cleaning pipeline:</p>
+      <div class="how-to">
+        <h4>How to set up a batch clean:</h4>
+        <ol>
+          <li>Click <strong>Batch Clean</strong> (in the Cleanup group or Quick Clean dropdown)</li>
+          <li>Add steps: e.g., Trim Spaces &rarr; Change Case to Title &rarr; Remove Duplicates</li>
+          <li>Preview the results at each step</li>
+          <li>Click <strong>Run All</strong> to execute the entire pipeline</li>
+          <li>Save the pipeline as a preset for future use</li>
+        </ol>
+      </div>
+
+      <h3>Quick Clean Presets</h3>
+      <p>Pre-built cleaning recipes for common scenarios:</p>
+      <ul>
+        <li><strong>Basic cleanup</strong> — Trim spaces + remove non-printable characters</li>
+        <li><strong>Name cleanup</strong> — Trim + Title Case + remove extra spaces</li>
+        <li><strong>Number fix</strong> — Convert text-to-number + remove currency symbols + trim</li>
+        <li><strong>Contact cleanup</strong> — Format phones + validate emails + standardize names</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Tip:</strong> If you clean the same type of data regularly (e.g., a weekly export from another system), save a Batch Clean preset. Next time, it's a one-click operation.
+      </div>
+    </section>
+
+    <!-- ===== 9. TIPS ===== -->
+    <section class="tutorial-section" id="tips">
+      <h2>9. Tips &amp; Best Practices</h2>
+
+      <h3>Before You Start</h3>
+      <ul>
+        <li><strong>Work on a copy.</strong> While DataScrub supports Undo, it's always safest to clean a copy of your data.</li>
+        <li><strong>Run Health Scan first.</strong> It gives you a roadmap of everything that needs fixing.</li>
+        <li><strong>Select carefully.</strong> Most tools work only on the selected range. Select too little and you'll miss data; select too much and you might clean cells you didn't intend to.</li>
+      </ul>
+
+      <h3>Common Workflows</h3>
+      <table class="feature-table">
+        <tr><th>Scenario</th><th>Recommended Steps</th></tr>
+        <tr><td>Cleaning a CSV export</td><td>Import &rarr; Health Scan &rarr; Trim Spaces &rarr; Smart Fix (numbers) &rarr; Dedup</td></tr>
+        <tr><td>Preparing data for VLOOKUP</td><td>Trim Spaces &rarr; Change Case &rarr; Strip hidden characters &rarr; Values (remove formulas)</td></tr>
+        <tr><td>Cleaning a mailing list</td><td>Trim &rarr; Split Names &rarr; Title Case &rarr; Format Phones &rarr; Validate Emails &rarr; Dedup</td></tr>
+        <tr><td>Extracting data from PDF</td><td>Import PDF &rarr; Health Scan &rarr; Smart Fix &rarr; Text &rarr; Date &rarr; Trim</td></tr>
+        <tr><td>Fixing pivot table source data</td><td>Unmerge &rarr; Fill gaps &rarr; Trim Spaces &rarr; Remove Blanks &rarr; Dedup</td></tr>
+      </table>
+
+      <h3>Keyboard Shortcuts</h3>
+      <p>DataScrub tools don't have built-in keyboard shortcuts, but you can use Excel's ribbon shortcut system: press <kbd>Alt</kbd>, then look for the shortcut letters that appear on the DATA SCRUB tab. This lets you access any tool without the mouse.</p>
+
+      <h3>Getting Help</h3>
+      <p>If you run into issues or have questions, email <a href="mailto:jkisarale@gmail.com">jkisarale@gmail.com</a> — we typically respond within 24 hours.</p>
+    </section>
+
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-bar">
+    <h2>Ready to clean your data?</h2>
+    <p>Download DataScrub and try all 55+ tools free for 3 days.</p>
+    <div class="buttons">
+      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" class="btn btn-white">Download</a>
+      <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" class="btn btn-ghost">Buy License &mdash; $29/yr</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="datascrub.html">DataScrub</a>
+      <a href="nonprofitreports.html">NonprofitReports</a>
+      <a href="support.html">Support</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+    </div>
+    <p>&copy; 2026 GetDataScrub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
