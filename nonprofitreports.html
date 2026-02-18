@@ -46,9 +46,13 @@
     .screenshot-banner {
       max-width: 960px; margin: -28px auto 0; padding: 0 20px; position: relative; z-index: 10;
     }
-    .screenshot-banner img {
-      width: 100%; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-      border: 2px solid rgba(255,255,255,0.3);
+    .screenshot-wrap {
+      border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3); overflow: hidden;
+      height: 240px; background: #f0f4f4;
+    }
+    .screenshot-wrap img {
+      width: 100%; transform: scale(1.8); transform-origin: 55% 20%;
     }
 
     /* Section basics */
@@ -145,8 +149,9 @@
 
   <!-- ===== SCREENSHOT ===== -->
   <div class="screenshot-banner">
-    <img src="npr-ribbon.png" alt="NonprofitReports ribbon tab in Excel"
-         onerror="this.style.background='linear-gradient(135deg,#0d7377,#14919b)';this.style.height='120px';this.alt='Screenshot coming soon';">
+    <div class="screenshot-wrap">
+      <img src="npr-ribbon.png" alt="NonprofitReports ribbon tab in Excel">
+    </div>
   </div>
 
   <!-- ===== FEATURES ===== -->

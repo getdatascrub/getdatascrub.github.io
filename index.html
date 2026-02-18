@@ -59,10 +59,15 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
     .showcase-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.12); }
-    .showcase-img {
-      width: 100%; height: 200px; object-fit: cover; object-position: top;
-      border-bottom: 3px solid #0d7377;
+    .showcase-img-wrap {
+      height: 200px; overflow: hidden; border-bottom: 3px solid #0d7377;
+      background: #f0f4f4;
     }
+    .showcase-img-wrap img {
+      width: 100%; transform: scale(2); transform-origin: 50% 18%;
+    }
+    .showcase-img-wrap.ds img { transform-origin: 45% 18%; }
+    .showcase-img-wrap.npr img { transform-origin: 55% 18%; }
     .showcase-body { padding: 28px; }
     .showcase-body h3 { font-size: 24px; color: #0d7377; margin-bottom: 4px; }
     .showcase-body .audience { font-size: 13px; color: #888; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
@@ -172,7 +177,9 @@
     <div class="showcase">
       <!-- DataScrub -->
       <div class="showcase-card">
-        <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel" class="showcase-img">
+        <div class="showcase-img-wrap ds">
+          <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel">
+        </div>
         <div class="showcase-body">
           <h3>DataScrub</h3>
           <p class="audience">For anyone who cleans data in Excel</p>
@@ -183,8 +190,9 @@
 
       <!-- NonprofitReports -->
       <div class="showcase-card">
-        <img src="npr-ribbon.png" alt="NonprofitReports ribbon tab in Excel" class="showcase-img"
-             onerror="this.style.background='linear-gradient(135deg,#0d7377,#14919b)';this.style.display='flex';this.alt='NonprofitReports — screenshot coming soon';">
+        <div class="showcase-img-wrap npr">
+          <img src="npr-ribbon.png" alt="NonprofitReports ribbon tab in Excel">
+        </div>
         <div class="showcase-body">
           <h3>NonprofitReports</h3>
           <p class="audience">For nonprofit accountants &amp; finance teams</p>

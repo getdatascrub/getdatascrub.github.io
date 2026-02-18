@@ -46,9 +46,13 @@
     .screenshot-banner {
       max-width: 960px; margin: -28px auto 0; padding: 0 20px; position: relative; z-index: 10;
     }
-    .screenshot-banner img {
-      width: 100%; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-      border: 2px solid rgba(255,255,255,0.3);
+    .screenshot-wrap {
+      border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3); overflow: hidden;
+      height: 240px; background: #f0f4f4;
+    }
+    .screenshot-wrap img {
+      width: 100%; transform: scale(1.8); transform-origin: 45% 18%;
     }
 
     /* Section basics */
@@ -136,7 +140,9 @@
 
   <!-- ===== SCREENSHOT ===== -->
   <div class="screenshot-banner">
-    <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel showing 55+ data cleaning tools">
+    <div class="screenshot-wrap">
+      <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel showing 55+ data cleaning tools">
+    </div>
   </div>
 
   <!-- ===== FEATURES ===== -->
