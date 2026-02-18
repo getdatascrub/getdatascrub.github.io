@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NonprofitReports - GAAP Financial Statements for Nonprofits in Excel</title>
+  <meta name="description" content="NonprofitReports generates all 4 GAAP financial statements, grant reports, budgets, and board packages in Excel. Import from QuickBooks, Xero, Blackbaud. $399/year.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.6; }
+    a { color: #0d7377; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      background: #0a5c5f; padding: 14px 20px; text-align: center;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav a { color: rgba(255,255,255,0.85); margin: 0 16px; font-size: 14px; font-weight: 600; }
+    .nav a:hover { color: white; text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 40%, #0d7377 100%);
+      color: white; padding: 64px 20px 48px; text-align: center;
+    }
+    .hero .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .hero p { font-size: 20px; max-width: 650px; margin: 0 auto 24px; opacity: 0.93; }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block; padding: 14px 32px; border-radius: 8px; font-size: 16px;
+      font-weight: 700; cursor: pointer; border: none; text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-decoration: none; }
+    .btn-white { background: #fff; color: #0d7377; }
+    .btn-ghost { background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-green { background: #0d7377; color: white; }
+    .btn-dark { background: #1a1a2e; color: white; }
+
+    /* Screenshot banner */
+    .screenshot-banner {
+      max-width: 960px; margin: -28px auto 0; padding: 0 20px; position: relative; z-index: 10;
+    }
+    .screenshot-banner img {
+      width: 100%; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    /* Section basics */
+    .section { padding: 72px 20px; max-width: 1000px; margin: 0 auto; }
+    .section-alt { background: #f7fafa; }
+    .section h2 { font-size: 30px; text-align: center; margin-bottom: 12px; color: #0d7377; }
+    .section .lead { text-align: center; font-size: 17px; color: #555; margin-bottom: 44px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    /* Feature grid */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .feature {
+      background: white; border-radius: 12px; padding: 24px; text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8efef;
+    }
+    .feature-icon { font-size: 36px; margin-bottom: 10px; }
+    .feature h3 { font-size: 17px; margin-bottom: 6px; color: #0d7377; }
+    .feature p { font-size: 14px; color: #555; }
+
+    /* Report categories */
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .category { background: white; border-radius: 10px; padding: 20px; border-left: 4px solid #0d7377; }
+    .category h4 { font-size: 16px; color: #0d7377; margin-bottom: 8px; }
+    .category ul { list-style: none; font-size: 14px; color: #555; }
+    .category ul li { padding: 3px 0; }
+    .category ul li::before { content: "\2713 "; color: #0d7377; font-weight: bold; }
+
+    /* Audience cards */
+    .audience-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .audience-card {
+      background: white; border-radius: 12px; padding: 24px; text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8efef;
+    }
+    .audience-card h3 { font-size: 16px; color: #0d7377; margin-bottom: 6px; }
+    .audience-card p { font-size: 14px; color: #555; }
+
+    /* Steps */
+    .steps { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+    .step { text-align: center; flex: 1; min-width: 180px; max-width: 240px; }
+    .step-num {
+      width: 48px; height: 48px; background: #0d7377; color: white; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+    }
+    .step h3 { font-size: 17px; margin-bottom: 4px; }
+    .step p { font-size: 14px; color: #555; }
+
+    /* CTA */
+    .cta-bar {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
+      color: white; text-align: center; padding: 56px 20px;
+    }
+    .cta-bar h2 { font-size: 28px; margin-bottom: 8px; color: white; }
+    .cta-bar p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+    .cta-bar .buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Footer */
+    .footer {
+      background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 20px;
+      text-align: center; font-size: 14px;
+    }
+    .footer-links { margin-bottom: 16px; }
+    .footer-links a { color: rgba(255,255,255,0.7); margin: 0 12px; }
+    .footer-links a:hover { color: white; }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 17px; }
+      .section h2 { font-size: 24px; }
+      .steps { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="datascrub.html">DataScrub</a>
+    <a href="nonprofitreports.html">NonprofitReports</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="badge">$399/year &middot; 3-day free trial</div>
+    <h1>GAAP nonprofit financials in clicks, not hours</h1>
+    <p>Import from QuickBooks, Xero, or Blackbaud and generate all 4 GAAP financial statements, grant reports, budgets, and board packages — right inside Excel.</p>
+    <div class="hero-buttons">
+      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/nonprofitreports-releases/NonprofitReports64-packed.xll" class="btn btn-white">Download Free Trial</a>
+      <a href="https://buy.stripe.com/9B67sNdxIfo6dL0bQGfYY01" class="btn btn-ghost">Buy License &mdash; $399/yr</a>
+    </div>
+  </header>
+
+  <!-- ===== SCREENSHOT ===== -->
+  <div class="screenshot-banner">
+    <img src="npr-ribbon.png" alt="NonprofitReports ribbon tab in Excel"
+         onerror="this.style.background='linear-gradient(135deg,#0d7377,#14919b)';this.style.height='120px';this.alt='Screenshot coming soon';">
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section" style="padding-top: 56px;">
+    <h2>Everything Nonprofit Accountants Need</h2>
+    <p class="lead">Generate month-end reports in minutes, not hours. Built for GAAP compliance.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">&#128209;</div>
+        <h3>4 GAAP Financial Statements</h3>
+        <p>Statement of Activities, Financial Position, Functional Expenses, and Cash Flows — all generated with one click.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128230;</div>
+        <h3>One-Click Data Import</h3>
+        <p>Auto-detects and imports from QuickBooks, Xero, Blackbaud, Sage Intacct, Aplos, and any CSV export.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#127793;</div>
+        <h3>Grant Tracking</h3>
+        <p>Complete grant lifecycle management. Budget vs actuals, spending analysis, utilization tracking, and funder-ready reports.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128202;</div>
+        <h3>Cost Allocation</h3>
+        <p>Automated functional expense allocation across Program, M&amp;G, and Fundraising. Multiple allocation methods.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128176;</div>
+        <h3>Budget &amp; Scenarios</h3>
+        <p>Conservative, Base, and Optimistic budget modeling. Variance analysis. Forecasting. Board-ready budget reports.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128203;</div>
+        <h3>Board Reports &amp; KPIs</h3>
+        <p>Executive dashboards, custom report builder, program profitability, trends, and 8+ financial health KPIs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 20+ REPORTS ===== -->
+  <div class="section-alt">
+    <section class="section">
+      <h2>20+ Reports &amp; Tools</h2>
+      <p class="lead">From GAAP statements to board packages — every report your nonprofit needs.</p>
+      <div class="categories">
+        <div class="category">
+          <h4>Financial Statements</h4>
+          <ul>
+            <li>Statement of Activities</li>
+            <li>Statement of Financial Position</li>
+            <li>Statement of Functional Expenses</li>
+            <li>Statement of Cash Flows</li>
+            <li>Trial Balance (8-column)</li>
+            <li>Board Summary Report</li>
+            <li>Custom Report Builder</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Grant &amp; Program</h4>
+          <ul>
+            <li>Grant Tracker Dashboard</li>
+            <li>Grant Budget vs Actuals</li>
+            <li>Grant Transaction Detail</li>
+            <li>Program Expenses</li>
+            <li>Program Revenue</li>
+            <li>Program Profitability</li>
+            <li>Program Comparison</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Budgets &amp; Allocation</h4>
+          <ul>
+            <li>Budget Setup &amp; Entry</li>
+            <li>Budget vs Actuals</li>
+            <li>3 Scenario Modeling</li>
+            <li>Forecasting</li>
+            <li>Cost Allocation Engine</li>
+            <li>Allocation Rules Manager</li>
+            <li>Allocation Report</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Analytics &amp; Tools</h4>
+          <ul>
+            <li>Financial Dashboard</li>
+            <li>Key Performance Indicators</li>
+            <li>Revenue Mix Analysis</li>
+            <li>Trends Report</li>
+            <li>Period Comparison</li>
+            <li>Export to PDF</li>
+            <li>Audit Trail</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== BUILT FOR ===== -->
+  <section class="section">
+    <h2>Built For</h2>
+    <p class="lead">Whoever you are in the nonprofit finance world, this tool was made for you.</p>
+    <div class="audience-grid">
+      <div class="audience-card">
+        <h3>Nonprofit Accountants</h3>
+        <p>Generate all your month-end reports in minutes instead of hours.</p>
+      </div>
+      <div class="audience-card">
+        <h3>Finance Directors &amp; CFOs</h3>
+        <p>Board-ready financials and KPI dashboards at the click of a button.</p>
+      </div>
+      <div class="audience-card">
+        <h3>Grant Managers</h3>
+        <p>Track spending, utilization, and generate funder reports instantly.</p>
+      </div>
+      <div class="audience-card">
+        <h3>CPA Firms</h3>
+        <p>Serve multiple nonprofit clients efficiently with one tool.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <div class="section-alt">
+    <section class="section">
+      <h2>How It Works</h2>
+      <p class="lead"></p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Download</h3>
+          <p>Download the .xll file and double-click to load in Excel.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Import Data</h3>
+          <p>Import from QuickBooks, Xero, Blackbaud, Sage, or any CSV export.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Generate Reports</h3>
+          <p>Click "Generate All" — all 4 GAAP statements created instantly.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Present &amp; Analyze</h3>
+          <p>Export to PDF, drill into details, share with your board.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-bar">
+    <h2>Try NonprofitReports free for 3 days</h2>
+    <p>No credit card. No signup. Import your data and see the reports in minutes.</p>
+    <div class="buttons">
+      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/nonprofitreports-releases/NonprofitReports64-packed.xll" class="btn btn-white">Download Free Trial</a>
+      <a href="https://buy.stripe.com/9B67sNdxIfo6dL0bQGfYY01" class="btn btn-ghost">Buy License &mdash; $399/yr</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="datascrub.html">DataScrub</a>
+      <a href="support.html">Support</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="mailto:jkisarale@gmail.com">Contact</a>
+    </div>
+    <p>&copy; 2026 GetDataScrub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

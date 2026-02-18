@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataScrub - Clean Messy Excel Data in Seconds</title>
+  <meta name="description" content="DataScrub is an Excel add-in with 55+ one-click data cleaning tools. Trim, split, deduplicate, reformat, and import data — no formulas, no VBA. $29/year.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.6; }
+    a { color: #0d7377; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      background: #0a5c5f; padding: 14px 20px; text-align: center;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .nav a { color: rgba(255,255,255,0.85); margin: 0 16px; font-size: 14px; font-weight: 600; }
+    .nav a:hover { color: white; text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 40%, #0d7377 100%);
+      color: white; padding: 64px 20px 48px; text-align: center;
+    }
+    .hero .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
+    .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
+    .hero p { font-size: 20px; max-width: 620px; margin: 0 auto 24px; opacity: 0.93; }
+    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Buttons */
+    .btn {
+      display: inline-block; padding: 14px 32px; border-radius: 8px; font-size: 16px;
+      font-weight: 700; cursor: pointer; border: none; text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-decoration: none; }
+    .btn-white { background: #fff; color: #0d7377; }
+    .btn-ghost { background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.5); }
+    .btn-green { background: #0d7377; color: white; }
+    .btn-dark { background: #1a1a2e; color: white; }
+
+    /* Screenshot banner */
+    .screenshot-banner {
+      max-width: 960px; margin: -28px auto 0; padding: 0 20px; position: relative; z-index: 10;
+    }
+    .screenshot-banner img {
+      width: 100%; border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
+      border: 2px solid rgba(255,255,255,0.3);
+    }
+
+    /* Section basics */
+    .section { padding: 72px 20px; max-width: 1000px; margin: 0 auto; }
+    .section-alt { background: #f7fafa; }
+    .section h2 { font-size: 30px; text-align: center; margin-bottom: 12px; color: #0d7377; }
+    .section .lead { text-align: center; font-size: 17px; color: #555; margin-bottom: 44px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    /* Feature grid */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .feature {
+      background: white; border-radius: 12px; padding: 24px; text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8efef;
+    }
+    .feature-icon { font-size: 36px; margin-bottom: 10px; }
+    .feature h3 { font-size: 17px; margin-bottom: 6px; color: #0d7377; }
+    .feature p { font-size: 14px; color: #555; }
+
+    /* Tool categories */
+    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+    .category { background: white; border-radius: 10px; padding: 20px; border-left: 4px solid #0d7377; }
+    .category h4 { font-size: 16px; color: #0d7377; margin-bottom: 8px; }
+    .category ul { list-style: none; font-size: 14px; color: #555; }
+    .category ul li { padding: 3px 0; }
+    .category ul li::before { content: "\2713 "; color: #0d7377; font-weight: bold; }
+
+    /* Steps */
+    .steps { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
+    .step { text-align: center; flex: 1; min-width: 180px; max-width: 240px; }
+    .step-num {
+      width: 48px; height: 48px; background: #0d7377; color: white; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+    }
+    .step h3 { font-size: 17px; margin-bottom: 4px; }
+    .step p { font-size: 14px; color: #555; }
+
+    /* CTA */
+    .cta-bar {
+      background: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
+      color: white; text-align: center; padding: 56px 20px;
+    }
+    .cta-bar h2 { font-size: 28px; margin-bottom: 8px; color: white; }
+    .cta-bar p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
+    .cta-bar .buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Footer */
+    .footer {
+      background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 20px;
+      text-align: center; font-size: 14px;
+    }
+    .footer-links { margin-bottom: 16px; }
+    .footer-links a { color: rgba(255,255,255,0.7); margin: 0 12px; }
+    .footer-links a:hover { color: white; }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      .hero h1 { font-size: 28px; }
+      .hero p { font-size: 17px; }
+      .section h2 { font-size: 24px; }
+      .steps { gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html">Home</a>
+    <a href="datascrub.html">DataScrub</a>
+    <a href="nonprofitreports.html">NonprofitReports</a>
+    <a href="index.html#faq">FAQ</a>
+    <a href="support.html">Support</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="badge">$29/year &middot; 3-day free trial</div>
+    <h1>Fix messy Excel data in seconds</h1>
+    <p>55+ one-click cleaning tools, right inside your Excel ribbon. Select your data, pick a tool, done.</p>
+    <div class="hero-buttons">
+      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" class="btn btn-white">Download Free Trial</a>
+      <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" class="btn btn-ghost">Buy License &mdash; $29/yr</a>
+    </div>
+  </header>
+
+  <!-- ===== SCREENSHOT ===== -->
+  <div class="screenshot-banner">
+    <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel showing 55+ data cleaning tools">
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="section" style="padding-top: 56px;">
+    <h2>Everything You Need to Clean Data</h2>
+    <p class="lead">Stop writing formulas and running VBA macros. Just click.</p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">&#9889;</div>
+        <h3>One-Click Cleaning</h3>
+        <p>Select your data, pick a tool, and watch it clean instantly. No formulas, no VBA, no hassle.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128295;</div>
+        <h3>55+ Built-In Tools</h3>
+        <p>From trimming spaces to splitting names, formatting phones to removing duplicates — every tool you need.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128196;</div>
+        <h3>Import Anything</h3>
+        <p>Pull data from CSV, PDF, Word documents, and text files directly into Excel. Clean on import.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128274;</div>
+        <h3>Undo Everything</h3>
+        <p>Every operation can be undone. Preview changes before applying. Your data is always safe.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#127919;</div>
+        <h3>Works in Your Excel</h3>
+        <p>Installs as a native Excel ribbon tab. No separate app, no uploading data anywhere. 100% offline.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">&#128200;</div>
+        <h3>Data Health Scan</h3>
+        <p>Scan your data for issues — blanks, duplicates, inconsistent formats — and fix them all in one go.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 55+ TOOLS ===== -->
+  <div class="section-alt">
+    <section class="section">
+      <h2>55+ Data Cleaning Tools</h2>
+      <p class="lead">Organized by category so you always find what you need.</p>
+      <div class="categories">
+        <div class="category">
+          <h4>Text Cleaning</h4>
+          <ul>
+            <li>Trim &amp; clean whitespace</li>
+            <li>Change case (UPPER, lower, Title)</li>
+            <li>Remove special characters</li>
+            <li>Find &amp; replace with regex</li>
+            <li>Extract text patterns</li>
+            <li>Split cells &amp; names</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Number Tools</h4>
+          <ul>
+            <li>Text to number conversion</li>
+            <li>Round &amp; format numbers</li>
+            <li>Leading zeros</li>
+            <li>Quick calculations</li>
+            <li>Percentage changes</li>
+            <li>Unit converter</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Date &amp; Time</h4>
+          <ul>
+            <li>Text to date parsing</li>
+            <li>Date math &amp; differences</li>
+            <li>Age calculator</li>
+            <li>Insert date parts</li>
+            <li>Timestamp insertion</li>
+            <li>Standardize date formats</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Data Quality</h4>
+          <ul>
+            <li>Remove duplicates (advanced)</li>
+            <li>Data health scan</li>
+            <li>Validate emails</li>
+            <li>Format phone numbers</li>
+            <li>Split addresses</li>
+            <li>Standardize values</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Import &amp; Transform</h4>
+          <ul>
+            <li>Import CSV files</li>
+            <li>Extract from PDF</li>
+            <li>Extract from Word</li>
+            <li>Merge multiple files</li>
+            <li>Paste &amp; clean</li>
+            <li>Change delimiters</li>
+          </ul>
+        </div>
+        <div class="category">
+          <h4>Productivity</h4>
+          <ul>
+            <li>Batch clean (multi-step)</li>
+            <li>Quick clean presets</li>
+            <li>Remove blanks</li>
+            <li>Fill gaps</li>
+            <li>Highlight by pattern</li>
+            <li>Insert sequences &amp; IDs</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="section">
+    <h2>How It Works</h2>
+    <p class="lead"></p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Download</h3>
+        <p>Download the .xll file and double-click to load it in Excel.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Select Data</h3>
+        <p>Highlight the cells or columns you want to clean.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Pick a Tool</h3>
+        <p>Click any tool from the DATA SCRUB ribbon tab.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Done!</h3>
+        <p>Clean data, instantly. No formulas or macros needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="cta-bar">
+    <h2>Try DataScrub free for 3 days</h2>
+    <p>No credit card. No signup. Just download and start cleaning.</p>
+    <div class="buttons">
+      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" class="btn btn-white">Download Free Trial</a>
+      <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" class="btn btn-ghost">Buy License &mdash; $29/yr</a>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="nonprofitreports.html">NonprofitReports</a>
+      <a href="support.html">Support</a>
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms-of-service.html">Terms of Service</a>
+      <a href="mailto:jkisarale@gmail.com">Contact</a>
+    </div>
+    <p>&copy; 2026 GetDataScrub. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
