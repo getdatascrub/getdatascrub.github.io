@@ -139,7 +139,7 @@
     <a href="index.html">Home</a>
     <a href="datascrub.html">DataScrub</a>
     <a href="nonprofitreports.html">NonprofitReports</a>
-    <a href="index.html#faq">FAQ</a>
+    <a href="datascrub-tutorial.html">Tutorial</a>
     <a href="support.html">Support</a>
     <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" style="background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:6px;">Download</a>
     <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" style="background:#fff;color:#0a5c5f;padding:6px 16px;border-radius:6px;">Buy</a>
@@ -307,38 +307,135 @@
       </div>
 
       <h3>Strip Chars</h3>
-      <p>Removes specific character types from your selection. Options include:</p>
-      <ul>
-        <li><strong>Non-printable characters</strong> — control characters, line breaks, tabs</li>
-        <li><strong>Numbers from text</strong> — strips all digits (useful for extracting names from "John123")</li>
-        <li><strong>Letters from text</strong> — strips all letters (useful for extracting numbers from "Order#12345")</li>
-        <li><strong>Special characters</strong> — removes punctuation and symbols</li>
-        <li><strong>Custom characters</strong> — specify exactly which characters to remove</li>
-      </ul>
+      <p>Removes specific character types from your selection. Click the <strong>Strip Chars</strong> dropdown to choose what to remove:</p>
+
+      <div class="screenshot">
+        <img src="Strip Characters.png" alt="Strip Chars dropdown showing 5 character removal options">
+        <div class="screenshot-caption">The Strip Chars dropdown with options to remove custom characters, letters, numbers, accents, or deduplicate within cells.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Does</th><th>Example</th></tr>
+        <tr><td><strong>Remove Characters...</strong></td><td>Opens the full Remove Characters dialog (see below)</td><td>Remove first N chars, keep only N chars, strip non-printable, or specify custom characters</td></tr>
+        <tr><td><strong>Remove All Letters (A-Z)</strong></td><td>Strips all alphabetic characters, leaving only numbers and symbols</td><td>"Order#12345" &rarr; "#12345"</td></tr>
+        <tr><td><strong>Remove All Numbers (0-9)</strong></td><td>Strips all digits, leaving only letters and symbols</td><td>"John123Smith" &rarr; "JohnSmith"</td></tr>
+        <tr><td><strong>Remove Accents (e&rarr;e)</strong></td><td>Replaces accented characters with their plain equivalents</td><td>"caf&eacute;" &rarr; "cafe", "r&eacute;sum&eacute;" &rarr; "resume"</td></tr>
+        <tr><td><strong>Dedup Within Cell...</strong></td><td>Removes duplicate words or values within a single cell</td><td>"red, blue, red, green" &rarr; "red, blue, green"</td></tr>
+      </table>
+
+      <h4>The Remove Characters Dialog</h4>
+      <p>Clicking <strong>Remove Characters...</strong> opens a detailed dialog with 8 removal modes:</p>
+
+      <div class="screenshot">
+        <img src="Strip Characters Box.png" alt="Remove Characters dialog showing 8 character removal options with count field and preview">
+        <div class="screenshot-caption">The Remove Characters dialog lets you remove by position (first N, last N, keep only first N), by type (letters, numbers, non-printable, accents), or by specifying exact characters to strip. The status bar shows how many cells will be affected.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Mode</th><th>What It Does</th><th>Use Case</th></tr>
+        <tr><td><strong>Remove first N characters</strong></td><td>Strips the first N characters from each cell</td><td>Remove a fixed-length prefix like "INV-" (set N=4)</td></tr>
+        <tr><td><strong>Remove last N characters</strong></td><td>Strips the last N characters from each cell</td><td>Remove a file extension like ".csv" (set N=4)</td></tr>
+        <tr><td><strong>Keep only first N characters</strong></td><td>Truncates each cell to N characters</td><td>Standardize codes to a fixed length</td></tr>
+        <tr><td><strong>Remove all letters (keep numbers)</strong></td><td>Strips A-Z, keeps digits and symbols</td><td>Extract numeric IDs from mixed text</td></tr>
+        <tr><td><strong>Remove all numbers (keep letters)</strong></td><td>Strips 0-9, keeps letters and symbols</td><td>Extract names from alphanumeric codes</td></tr>
+        <tr><td><strong>Remove non-printable characters</strong></td><td>Strips control chars, zero-width chars, BOM markers</td><td>Clean data pasted from web or imported files</td></tr>
+        <tr><td><strong>Remove accents/diacritics</strong></td><td>Replaces accented letters with plain equivalents</td><td>Normalize international names for matching</td></tr>
+        <tr><td><strong>Remove specific characters</strong></td><td>Type the exact characters to strip in the text box</td><td>Remove specific symbols like @, #, $, etc.</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>Tip:</strong> The status bar at the bottom shows "X of Y cells will change" before you click Remove — so you can preview the impact without modifying anything.
+      </div>
 
       <h3>Change Case</h3>
-      <p>Converts text between case formats:</p>
-      <ul>
-        <li><strong>UPPER CASE</strong> — "john smith" becomes "JOHN SMITH"</li>
-        <li><strong>lower case</strong> — "JOHN SMITH" becomes "john smith"</li>
-        <li><strong>Title Case</strong> — "john smith" becomes "John Smith"</li>
-        <li><strong>Sentence case</strong> — "hello world. goodbye world." becomes "Hello world. Goodbye world."</li>
-      </ul>
+      <p>Converts text between case formats. Click the <strong>Change Case</strong> dropdown to pick a format:</p>
+
+      <div class="screenshot">
+        <img src="Change Case.png" alt="Change Case dropdown showing 5 case conversion options with UPPER CASE data visible in column D">
+        <div class="screenshot-caption">The Change Case dropdown with 5 options. Notice column D has inconsistent casing — some rows are UPPER CASE ("UTILITIES - ELECTRIC"), others are Title Case ("Cash - Operating"). Change Case fixes this in one click.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>Result</th><th>When to Use</th></tr>
+        <tr><td><strong>UPPER CASE</strong></td><td>"cash - operating" &rarr; "CASH - OPERATING"</td><td>Standardizing codes, headers, or labels</td></tr>
+        <tr><td><strong>lower case</strong></td><td>"JOHN SMITH" &rarr; "john smith"</td><td>Preparing data for case-sensitive matching</td></tr>
+        <tr><td><strong>Title Case</strong></td><td>"cash - operating" &rarr; "Cash - Operating"</td><td>Names, addresses, descriptions — the most common choice</td></tr>
+        <tr><td><strong>Sentence case</strong></td><td>"HELLO WORLD. GOODBYE." &rarr; "Hello world. Goodbye."</td><td>Notes, comments, free-text fields</td></tr>
+        <tr><td><strong>tOGGLE cASE</strong></td><td>"Hello" &rarr; "hELLO"</td><td>Rarely used — inverts every character's case</td></tr>
+      </table>
 
       <h3>Add Text</h3>
-      <p>Prepends or appends text to every cell in your selection. Useful for adding prefixes (like "INV-") or suffixes (like "@company.com") to a column of values.</p>
+      <p>Inserts text at a specific position in every cell in your selection — beginning, end, or at a character position. Useful for adding prefixes, suffixes, or inserting text mid-string.</p>
 
-      <h3>Split</h3>
-      <p>Splits cell contents into multiple columns based on a delimiter (comma, space, dash, custom). For example, splitting "Smith, John" into separate Last Name and First Name columns.</p>
+      <div class="screenshot">
+        <img src="Add Text Box.png" alt="Add Text dialog showing text insertion with 4 position options and live preview">
+        <div class="screenshot-caption">The Add Text dialog inserting "STRICTED" at the end of cells containing "UNRE" — turning them into "UNRESTRICTED". The status bar shows 14 of 14 cells will change. Notice the live results already visible in column I.</div>
+      </div>
 
-      <h3>Join</h3>
-      <p>The opposite of Split — combines multiple columns into one, with a delimiter of your choice. For example, joining First Name + Last Name with a space separator.</p>
+      <table class="feature-table">
+        <tr><th>Position Option</th><th>What It Does</th><th>Example</th></tr>
+        <tr><td><strong>Add to beginning of cell value</strong></td><td>Prepends text before existing content</td><td>"10001" &rarr; "INV-10001"</td></tr>
+        <tr><td><strong>Add to end of cell value</strong></td><td>Appends text after existing content</td><td>"UNRE" &rarr; "UNRESTRICTED"</td></tr>
+        <tr><td><strong>Add before position</strong></td><td>Inserts text before the Nth character</td><td>Insert "-" at position 4: "AP10001" &rarr; "AP-10001"</td></tr>
+        <tr><td><strong>Add after position</strong></td><td>Inserts text after the Nth character</td><td>Insert " " at position 2: "NY10001" &rarr; "NY 10001"</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>Tip:</strong> The preview updates live as you type, so you can see exactly what your data will look like before clicking Apply.
+      </div>
+
+      <h3>Split &amp; Join</h3>
+      <p>Split breaks cell contents into multiple columns or rows. Join does the opposite — combines multiple columns into one. Both are accessible from the <strong>Split Join</strong> button on the ribbon.</p>
+
+      <div class="screenshot">
+        <img src="Split Join.png" alt="Split Cells dialog showing split method options (delimiter, fixed width, line break) and split direction options">
+        <div class="screenshot-caption">The Split Cells dialog with 3 split methods (delimiter, fixed width, line break), 2 direction options (into columns or rows), and a "Keep original column" checkbox.</div>
+      </div>
+
+      <h4>Split Methods</h4>
+      <table class="feature-table">
+        <tr><th>Method</th><th>What It Does</th><th>Example</th></tr>
+        <tr><td><strong>Split by delimiter</strong></td><td>Splits on a character — comma, space, dash, pipe, or custom</td><td>"Smith, John" splits into "Smith" | "John"</td></tr>
+        <tr><td><strong>Split by fixed width</strong></td><td>Splits every N characters</td><td>"ABCDEF" with width 2 &rarr; "AB" | "CD" | "EF"</td></tr>
+        <tr><td><strong>Split by line break</strong></td><td>Splits multi-line cells into separate cells</td><td>A cell with 3 lines &rarr; 3 columns or 3 rows</td></tr>
+      </table>
+
+      <h4>Split Direction</h4>
+      <ul>
+        <li><strong>Into columns (right)</strong> — the split results fill new columns to the right of the original</li>
+        <li><strong>Into rows (down)</strong> — each split piece gets its own row (duplicates the other columns)</li>
+      </ul>
+
+      <div class="tip">
+        <strong>Tip:</strong> Check <strong>"Keep original column"</strong> if you want to preserve the source data alongside the split results. Uncheck it to replace the original with the split output.
+      </div>
+
+      <h4>Join (Combine Columns)</h4>
+      <p>Join does the opposite of Split — select multiple columns and combine them into one, with a delimiter of your choice. For example, joining First Name + Last Name with a space separator, or combining Address + City + State + Zip with commas.</p>
 
       <h3>Rearrange</h3>
       <p>Reorders parts of text within each cell. Common use: converting "Smith, John" to "John Smith" without splitting into separate columns.</p>
 
       <h3>Parse</h3>
-      <p>Extracts structured data from unstructured text using pattern recognition. Can pull out emails, phone numbers, dates, URLs, and other patterns from free-text fields.</p>
+      <p>Extracts specific data from text cells using pattern recognition. Click the <strong>Parse</strong> dropdown to choose an extraction method:</p>
+
+      <div class="screenshot">
+        <img src="Parse2.png" alt="Parse dropdown showing 5 extraction options: Substring, Between Delimiters, Numbers Only, Emails/URLs, Regex Pattern">
+        <div class="screenshot-caption">The Parse dropdown with 5 extraction tools. Each one pulls specific data out of your cells into a new column.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Extracts</th><th>Example</th></tr>
+        <tr><td><strong>Substring (first/last N)</strong></td><td>The first or last N characters from each cell</td><td>First 3 of "AP-10001" &rarr; "AP-"</td></tr>
+        <tr><td><strong>Between Delimiters</strong></td><td>Text between two characters you specify</td><td>Between "(" and ")" in "John (CEO)" &rarr; "CEO"</td></tr>
+        <tr><td><strong>Numbers Only</strong></td><td>Extracts just the numeric parts from mixed text</td><td>"Invoice #12345-A" &rarr; "12345"</td></tr>
+        <tr><td><strong>Emails_URLs</strong></td><td>Finds and extracts email addresses or URLs from free text</td><td>"Contact us at info@org.com for help" &rarr; "info@org.com"</td></tr>
+        <tr><td><strong>Regex Pattern...</strong></td><td>Extract using a custom regular expression — the most powerful option</td><td>Pattern <kbd>\d{3}-\d{4}</kbd> extracts phone numbers like "555-1234"</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>Tip:</strong> Parse extracts data into a new column to the right — it doesn't modify the original cell. This makes it safe to experiment with different extraction patterns.
+      </div>
 
       <h3>Create</h3>
       <p>Generates new data based on patterns — sequential IDs, random values, repeated sequences, or template-based text.</p>
@@ -355,10 +452,52 @@
     <section class="tutorial-section" id="numbers">
       <h2>4. Number Tools</h2>
 
-      <p>The <strong>Numbers</strong> group fixes, formats, and transforms numeric data. The most common issue: numbers stored as text that silently break SUM, AVERAGE, and other calculations.</p>
+      <p>The <strong>Numbers</strong> and <strong>Dates</strong> groups fix, format, and transform numeric and date data. The most common issue: numbers stored as text that silently break SUM, AVERAGE, and other calculations.</p>
+
+      <div class="screenshot">
+        <img src="Numbers Dates.png" alt="Numbers and Dates ribbon groups showing Insert, Transform, Extract, Quick Calc, Convert, Calculate, Analyze, Smart Fix, and Text to Date tools">
+        <div class="screenshot-caption">The Numbers and Dates ribbon groups. These tools handle everything from text-to-number conversion to date parsing, quick calculations, and data analysis.</div>
+      </div>
+
+      <h3>Insert</h3>
+      <p>Generates new data columns — sequences, IDs, running totals, and calculated values. Click the <strong>Insert</strong> dropdown:</p>
+
+      <div class="screenshot">
+        <img src="Insert.png" alt="Insert dropdown showing Sequential Numbers, Random Numbers, Unique IDs, Row Numbers, Running Total, and Calculated Column">
+        <div class="screenshot-caption">The Insert dropdown with 6 options for generating new data alongside your existing columns.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Generates</th><th>Use Case</th></tr>
+        <tr><td><strong>Sequential Numbers</strong></td><td>1, 2, 3, 4... (or custom start/step)</td><td>Adding row numbers or sequence IDs to imported data</td></tr>
+        <tr><td><strong>Random Numbers</strong></td><td>Random values within a range you specify</td><td>Test data generation, sampling</td></tr>
+        <tr><td><strong>Unique IDs</strong></td><td>Unique identifiers for each row</td><td>Creating primary keys for data that lacks them</td></tr>
+        <tr><td><strong>Row Numbers</strong></td><td>Simple row numbering (1, 2, 3...)</td><td>Quick numbering after sorting or filtering</td></tr>
+        <tr><td><strong>Running Total</strong></td><td>Cumulative sum down a numeric column</td><td>Running balance for financial data</td></tr>
+        <tr><td><strong>Calculated Column</strong></td><td>New column based on a formula using existing columns</td><td>Compute Debit - Credit, concatenate fields, etc.</td></tr>
+      </table>
 
       <h3>Quick Calc</h3>
-      <p>Performs quick arithmetic on your selection without writing formulas. Options include: add, subtract, multiply, divide by a value, round to N decimal places, and percentage calculations. The results replace the original values in place.</p>
+      <p>Performs quick arithmetic on every cell in your selection — no formulas needed. Enter a value, pick an operation, and DataScrub applies it across all selected cells in place.</p>
+
+      <div class="screenshot">
+        <img src="Quick Calc.png" alt="Quick Calc dropdown showing 6 arithmetic options: Add, Subtract, Multiply, Divide, Markup/Discount, Percentage Change">
+        <div class="screenshot-caption">The Quick Calc dropdown with 6 one-click arithmetic operations. Each one applies to every numeric cell in your selection.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Does</th><th>Example</th></tr>
+        <tr><td><strong>Add to all cells</strong></td><td>Adds a fixed number to every cell</td><td>Add 100 to all prices for a shipping surcharge</td></tr>
+        <tr><td><strong>Subtract from all cells</strong></td><td>Subtracts a fixed number from every cell</td><td>Subtract 5 to remove a flat fee from each amount</td></tr>
+        <tr><td><strong>Multiply all cells by</strong></td><td>Multiplies every cell by a factor</td><td>Multiply by 1.1 to apply a 10% increase</td></tr>
+        <tr><td><strong>Divide all cells by</strong></td><td>Divides every cell by a value</td><td>Divide by 100 to convert cents to dollars</td></tr>
+        <tr><td><strong>% Markup/Discount</strong></td><td>Applies a percentage increase or decrease</td><td>+15% markup on cost prices, or -20% discount</td></tr>
+        <tr><td><strong>Percentage Change</strong></td><td>Calculates the % change between each cell and a base value</td><td>Show how each month's sales compares to a baseline</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>Tip:</strong> Quick Calc modifies values in place. If you want to keep the original data, copy the column first or use <strong>Undo</strong> immediately after if the result isn't what you expected.
+      </div>
 
       <h3>Convert</h3>
       <p>Converts between units — temperature (F/C), distance (miles/km), weight (lbs/kg), currency formatting, and more.</p>
