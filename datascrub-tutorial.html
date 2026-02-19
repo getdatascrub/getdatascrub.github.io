@@ -518,7 +518,23 @@
       <p>Applies mathematical transformations: absolute value, round up/down, floor/ceiling, logarithm, square root, and power functions.</p>
 
       <h3>Analyze</h3>
-      <p>Generates summary statistics for your selection: count, sum, average, min, max, median, standard deviation, and percentiles. Results are displayed in a dialog and can be inserted into your worksheet.</p>
+      <p>The <strong>Analyze</strong> dropdown provides tools that go beyond simple statistics — it includes scaling, ranking, and number-to-text conversion:</p>
+
+      <div class="screenshot">
+        <img src="analyze.png" alt="Analyze dropdown showing Scale/Normalize, Rank Values, and Spell Out Numbers options">
+        <div class="screenshot-caption">The Analyze dropdown with 3 tools: Scale/Normalize for standardizing numeric ranges, Rank Values for ordering data, and Spell Out Numbers for converting digits to words.</div>
+      </div>
+
+      <table class="feature-table">
+        <tr><th>Option</th><th>What It Does</th><th>Use Case</th></tr>
+        <tr><td><strong>Scale / Normalize</strong></td><td>Rescales numbers to a standard range (e.g., 0–1 or 0–100) using min-max normalization or z-score standardization</td><td>Comparing metrics on different scales — e.g., revenue (thousands) vs. headcount (tens)</td></tr>
+        <tr><td><strong>Rank Values</strong></td><td>Assigns a rank to each cell based on its value (highest = 1, or lowest = 1)</td><td>Ranking sales reps by performance, students by score, or transactions by amount</td></tr>
+        <tr><td><strong>Spell Out Numbers</strong></td><td>Converts numeric values to written words</td><td>"85000" &rarr; "Eighty-Five Thousand" — required on checks, invoices, and legal documents</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>Tip:</strong> Spell Out Numbers is especially useful for financial documents where both the numeric amount and the written-out amount are required (e.g., checks, contracts, grant agreements).
+      </div>
 
       <div class="tip">
         <strong>Tip:</strong> If your SUM formula returns 0 but the cells clearly have numbers, they're probably text-formatted. Select the range and click <strong>Smart Fix</strong> — it will convert them to real numbers instantly.
