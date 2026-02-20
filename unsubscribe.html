@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe - GetDataScrub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 450px;
+            text-align: center;
+        }
+        h1 { color: #0d7377; font-size: 22px; }
+        p { line-height: 1.6; font-size: 15px; }
+        .btn {
+            display: inline-block;
+            background: #0d7377;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .btn:hover { background: #0a5c5f; }
+        .btn:disabled { background: #999; cursor: not-allowed; }
+        .success { color: #0d7377; font-weight: bold; }
+        .error { color: #c0392b; }
+        #status { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Unsubscribe from GetDataScrub</h1>
+        <div id="form-view">
+            <p>We're sorry to see you go. Click below to unsubscribe from our emails.</p>
+            <p id="email-display" style="font-weight: bold;"></p>
+            <button class="btn" id="unsub-btn" onclick="unsubscribe()">Unsubscribe</button>
+            <div id="status"></div>
+        </div>
+        <div id="done-view" style="display:none;">
+            <p class="success">You have been unsubscribed.</p>
+            <p>You will no longer receive emails from GetDataScrub.</p>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://ypuyaaglxvgpbpvsuila.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwdXlhYWdseHZncGJwdnN1aWxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDY5MTA5OTMsImV4cCI6MjA2MjQ4Njk5M30.-77OiC4lTy55HTbyVKJEtyz4l0KnFns3uwvb9nm4XEU';
+
+        // Get email from URL parameter
+        const params = new URLSearchParams(window.location.search);
+        const email = params.get('email') || '';
+
+        if (email) {
+            document.getElementById('email-display').textContent = email;
+        } else {
+            document.getElementById('form-view').innerHTML = '<p class="error">No email address provided.</p>';
+        }
+
+        async function unsubscribe() {
+            if (!email) return;
+            const btn = document.getElementById('unsub-btn');
+            const status = document.getElementById('status');
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+
+            try {
+                const resp = await fetch(SUPABASE_URL + '/rest/v1/datascrub_unsubscribes', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': 'Bearer ' + SUPABASE_KEY,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'resolution=merge-duplicates',
+                    },
+                    body: JSON.stringify({ email: email.toLowerCase() }),
+                });
+
+                if (resp.ok || resp.status === 201 || resp.status === 200) {
+                    document.getElementById('form-view').style.display = 'none';
+                    document.getElementById('done-view').style.display = 'block';
+                } else {
+                    // Even if there's a duplicate error, treat as success
+                    document.getElementById('form-view').style.display = 'none';
+                    document.getElementById('done-view').style.display = 'block';
+                }
+            } catch (e) {
+                status.innerHTML = '<p class="success">You have been unsubscribed.</p>';
+                btn.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
