@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NonprofitReports - User Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #333; line-height: 1.65; background: #f8f9fa; }
+  .container { max-width: 900px; margin: 0 auto; padding: 30px 40px; background: #fff; min-height: 100vh; }
+  h1 { font-size: 2em; color: #003366; border-bottom: 3px solid #004d99; padding-bottom: 12px; margin-bottom: 8px; }
+  .subtitle { color: #666; font-size: 1.05em; margin-bottom: 30px; }
+  h2 { font-size: 1.45em; color: #004d99; margin-top: 40px; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; }
+  h3 { font-size: 1.15em; color: #003366; margin-top: 24px; margin-bottom: 10px; }
+  p { margin-bottom: 12px; }
+  ul, ol { margin-bottom: 14px; padding-left: 28px; }
+  li { margin-bottom: 6px; }
+  code { background: #f0f4f8; padding: 2px 6px; border-radius: 3px; font-family: Consolas, 'Courier New', monospace; font-size: 0.92em; color: #004d99; }
+  pre { background: #f0f4f8; padding: 14px 18px; border-radius: 6px; overflow-x: auto; margin-bottom: 16px; border-left: 4px solid #004d99; }
+  pre code { background: none; padding: 0; color: #333; }
+  table { border-collapse: collapse; width: 100%; margin-bottom: 18px; }
+  th, td { border: 1px solid #ddd; padding: 9px 12px; text-align: left; font-size: 0.95em; }
+  th { background: #004d99; color: #fff; font-weight: 600; }
+  tr:nth-child(even) { background: #f8f9fa; }
+  .tip { background: #e8f4fd; border-left: 4px solid #2196F3; padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0; }
+  .tip strong { color: #1565C0; }
+  .warning { background: #fff3e0; border-left: 4px solid #FF9800; padding: 12px 16px; margin: 14px 0; border-radius: 0 6px 6px 0; }
+  .warning strong { color: #E65100; }
+  .toc { background: #f0f4f8; padding: 20px 28px; border-radius: 8px; margin-bottom: 30px; }
+  .toc h2 { margin-top: 0; border: none; padding-bottom: 0; }
+  .toc ol { margin-bottom: 0; }
+  .toc a { color: #004d99; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc li { margin-bottom: 4px; }
+  .formula-box { background: #f8f0ff; border: 1px solid #d0b0ff; padding: 12px 16px; border-radius: 6px; margin: 10px 0; }
+  .formula-box code { background: #efe0ff; color: #5b00a0; }
+  .key { display: inline-block; background: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 1px 7px; font-family: Consolas, monospace; font-size: 0.88em; }
+  hr { border: none; border-top: 1px solid #e0e0e0; margin: 30px 0; }
+  .footer { text-align: center; color: #999; font-size: 0.85em; margin-top: 40px; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+  @media print { body { background: #fff; } .container { padding: 0; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>NonprofitReports Excel Add-in</h1>
+<p class="subtitle">Complete User Guide &mdash; GAAP-Compliant Financial Reporting for Nonprofits</p>
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h2>Contents</h2>
+<ol>
+  <li><a href="#getting-started">Getting Started</a></li>
+  <li><a href="#importing-data">Importing Data</a></li>
+  <li><a href="#generating-reports">Generating Reports</a></li>
+  <li><a href="#report-details">Report Details</a></li>
+  <li><a href="#npr-formulas">NPR Formulas</a></li>
+  <li><a href="#drilldown">Transaction Drilldown</a></li>
+  <li><a href="#chart-of-accounts">Chart of Accounts</a></li>
+  <li><a href="#column-mapping">Column Mapping &amp; Presets</a></li>
+  <li><a href="#tips">Tips &amp; Best Practices</a></li>
+  <li><a href="#troubleshooting">Troubleshooting</a></li>
+</ol>
+</div>
+
+<!-- 1. GETTING STARTED -->
+<h2 id="getting-started">1. Getting Started</h2>
+
+<h3>System Requirements</h3>
+<ul>
+  <li>Windows 10 or later</li>
+  <li>Microsoft Excel 2016 or later (desktop version, not web/online)</li>
+  <li>.NET Framework 4.8 (built into Windows 10 &mdash; no separate install needed)</li>
+</ul>
+
+<h3>Opening the Add-in</h3>
+<ol>
+  <li>Double-click <strong>NonprofitReports-Portable.exe</strong>. No installation or administrator access is required.</li>
+  <li>Select <strong>Open NonprofitReports in Excel</strong>. The launcher detects whether your Excel is 32-bit or 64-bit and loads the correct add-in automatically.</li>
+  <li>Excel opens on the new <strong>Start Here</strong> worksheet, which remains the first workbook tab and shows the next required action.</li>
+  <li>You will also see a new <strong>"NONPROFIT REPORTING"</strong> tab on the ribbon. Use its <strong>Start Here</strong> button whenever you want to return to the workflow guide.</li>
+</ol>
+
+<div class="tip">
+  <strong>Live workflow guide:</strong> Start Here tracks six stages: import data, confirm reconciliation, approve financial classifications, review SFE allocations, generate statements, and perform final checks/export. Its status is based on evidence in the current workbook and refreshes whenever you open the sheet.
+</div>
+
+<div class="tip">
+  <strong>Portable mode:</strong> Keep the EXE wherever it is convenient. The launcher does not install or permanently register the add-in. It securely caches the selected runtime file under your Windows user profile and loads it for the current Excel session.
+</div>
+
+<div class="tip">
+  <strong>Your seven-day trial:</strong> Downloading the EXE, opening the launcher, or opening Excel does not start the trial. The fixed 168-hour period begins only when you run your first licensed NonprofitReports feature and the server confirms it. Internet access is required for that first feature. After verification, the signed cache supports up to 24 hours offline between checks, but never extends the seven-day expiry. Deleting the cache, reinstalling, or changing the Windows clock does not create a new trial.
+</div>
+
+<div class="warning">
+  <strong>Security:</strong> A downloaded copy may produce a Windows security prompt the first time it runs. Confirm that the publisher is NonprofitReports before continuing. Do not run the file if the publisher or file hash is unexpected.
+</div>
+
+<h3>The Ribbon</h3>
+<p>The NONPROFIT REPORTING tab contains these groups:</p>
+<table>
+  <tr><th>Group</th><th>Contains</th><th>Purpose</th></tr>
+  <tr><td><strong>Data</strong></td><td>Import Data, Map Columns, Chart of Accounts</td><td>Import and manage your transaction data</td></tr>
+  <tr><td><strong>Reports</strong></td><td>Generate All, SOA, SFP, SFE, SCF, Detailed TB, Board Summary</td><td>Generate GAAP-compliant financial statements and optional workpapers</td></tr>
+  <tr><td><strong>Formulas</strong></td><td>Insert NPR.GL, Formula Wizard</td><td>Build custom reports with live formulas</td></tr>
+  <tr><td><strong>Tools</strong></td><td>Start Here, Refresh Data, Period Selection, Export</td><td>Workflow guidance, utilities, and settings</td></tr>
+</table>
+
+<!-- 2. IMPORTING DATA -->
+<h2 id="importing-data">2. Importing Data</h2>
+
+<h3>Step-by-Step Import</h3>
+<ol>
+  <li>Click <strong>Import Data</strong> on the ribbon.</li>
+  <li><strong>Step 1 &mdash; Select GL Export:</strong> Choose a CSV or Excel General Ledger Detail file. The wizard shows file size, row count when available, and column count.</li>
+  <li><strong>Step 2 &mdash; Confirm Export Format:</strong> The wizard uses the exported file headers to suggest a column-mapping preset. This is a file import only; it does not connect to the accounting system.</li>
+  <li><strong>Step 3 &mdash; Review Mapping:</strong> Review how your file's columns map to transaction fields and choose the source number format. Use decimal point for values such as 1,234.56 or decimal comma for 1.234,56. Auto-detect rejects ambiguous values instead of guessing. <span style="color: darkred;">Date</span> and <span style="color: darkred;">Account Code</span> are required.</li>
+  <li>Click <strong>Import</strong>. A progress dialog shows real-time status with estimated time remaining.</li>
+</ol>
+
+<h3>Supported File Formats</h3>
+<table>
+  <tr><th>Format</th><th>Expected Columns</th></tr>
+  <tr><td>Generic CSV</td><td>Transaction ID, Date, Account Code, Account Name, Description, Debit, Credit, Amount, Fund, etc.</td></tr>
+  <tr><td>Blackbaud Financial Edge</td><td>Journal ID, Post Date, Account Number, Account Description, Debit Amount, Credit Amount...</td></tr>
+  <tr><td>QuickBooks Online/Desktop</td><td>Num, Date, Account, Memo/Description, Debit, Credit, Amount...</td></tr>
+  <tr><td>Sage Intacct</td><td>RECORDNO, WHENPOSTED, ACCOUNTNO, ACCOUNTTITLE, DEBITAMOUNT, CREDITAMOUNT...</td></tr>
+  <tr><td>Xero</td><td>JournalNumber, JournalDate, AccountCode, AccountName, Debit, Credit...</td></tr>
+  <tr><td>Aplos</td><td>Transaction ID, Date, Account Number, Account Name, Fund, Tag, Debit, Credit...</td></tr>
+</table>
+
+<h3>What Gets Imported</h3>
+<p>Your transactions are written to a sheet called <strong>"Data Import"</strong> with 21 columns covering all financial data fields. The import uses high-performance batch writing &mdash; even 300,000+ rows complete in under 2 minutes.</p>
+
+<div class="warning">
+  <strong>Required reconciliation:</strong> After every import, review the <strong>Import Control</strong> sheet. Reports remain blocked until all source rows are accepted and total debits equal total credits within $0.01. Correct rejected rows in the source and re-import; do not omit them from a final report.
+</div>
+
+<div class="tip">
+  <strong>Tip:</strong> You can re-import at any time. The existing Data Import sheet will be cleared and refreshed with the new data.
+</div>
+
+<h3>Preparing Your Data</h3>
+<p>For best results, export a <strong>General Ledger Detail</strong> report from your accounting system:</p>
+<ul>
+  <li>Include <strong>all accounts</strong> (assets, liabilities, equity, revenue, and expenses)</li>
+  <li>Include the <strong>full fiscal year(s)</strong> you want to report on</li>
+  <li>Include columns for <strong>Account Code, Account Name, Date, Debit, and Credit</strong> at minimum</li>
+  <li>If you use fund accounting, include <strong>Fund</strong> and <strong>Class/Program</strong> columns</li>
+</ul>
+
+<!-- 3. GENERATING REPORTS -->
+<h2 id="generating-reports">3. Generating Reports</h2>
+
+<h3>Generate All Reports at Once</h3>
+<p>Enter the report <strong>Start Date</strong> and <strong>End Date</strong> on the <strong>Start Here</strong> sheet, then click <strong>Generate All</strong>. The add-in first runs the required in-memory Trial Balance control. When it passes, the four core financial statements are generated. The detailed account-by-account Trial Balance worksheet is optional.</p>
+
+<p>Before the first report, complete the <strong>Account Map</strong> review. NonprofitReports pre-fills suggested financial and natural categories from the account code and name. Review the yellow rows, correct exceptions, then choose <strong>Account Map &gt; Approve Valid Suggestions</strong>. The Chart of Accounts contains financial-statement classifications only; it does not assign functional expense categories. Approval automatically creates an expense-only <strong>SFE Allocation Workpaper</strong> with actual amounts for the Start Here period when data is available.</p>
+
+<div class="tip">
+  <strong>Dynamic reporting period:</strong> After reports exist, changing either reporting date on Start Here reruns the required TB control and refreshes the generated statements and SFE workpaper. An existing detailed TB workpaper is also regenerated; otherwise it remains optional. If the selected period has no transactions, the last valid applied period remains authoritative. SFE allocation inputs are saved by period and restored when you return to those dates.
+</div>
+
+<h3>Generate Individual Reports</h3>
+<p>Click any individual report button to generate just that statement:</p>
+<ul>
+  <li><strong>SOA</strong> &mdash; Statement of Activities</li>
+  <li><strong>SFP</strong> &mdash; Statement of Financial Position (Balance Sheet)</li>
+  <li><strong>SFE</strong> &mdash; Statement of Functional Expenses</li>
+  <li><strong>SCF</strong> &mdash; Statement of Cash Flows</li>
+  <li><strong>Detailed TB</strong> &mdash; Optional 8-column Trial Balance workpaper</li>
+  <li><strong>Board Summary</strong> &mdash; Executive summary for board meetings</li>
+</ul>
+
+<div class="tip">
+  <strong>Tip:</strong> The period cell at the top of each standard report is linked to the validated Start Here dates. Change reporting dates only on Start Here so every statement and control remains synchronized.
+</div>
+
+<!-- 4. REPORT DETAILS -->
+<h2 id="report-details">4. Report Details</h2>
+
+<h3>Statement of Activities (SOA)</h3>
+<p>Shows revenue, expenses, and change in net assets for a period &mdash; the nonprofit equivalent of an income statement.</p>
+<ul>
+  <li><strong>Three columns:</strong> Without Donor Restrictions, With Donor Restrictions (Temporary &amp; Permanent), and Total</li>
+  <li>Revenue and support broken down by source</li>
+  <li>Expenses by natural classification</li>
+  <li>Net assets released from restrictions (if applicable)</li>
+  <li><strong>Bottom line:</strong> Change in Net Assets ties to the Statement of Financial Position</li>
+</ul>
+
+<h3>Statement of Financial Position (SFP)</h3>
+<p>The nonprofit balance sheet showing what the organization owns and owes.</p>
+<ul>
+  <li><strong>Assets:</strong> Current assets, fixed assets, other assets</li>
+  <li><strong>Liabilities:</strong> Current liabilities, long-term liabilities</li>
+  <li><strong>Net Assets:</strong> Without Donor Restrictions, With Donor Restrictions</li>
+  <li><strong>Always balances:</strong> Total Assets = Total Liabilities + Total Net Assets</li>
+</ul>
+
+<h3>Statement of Functional Expenses (SFE)</h3>
+<p>Required by ASC 958 &mdash; shows expenses by both natural classification and functional allocation.</p>
+<ul>
+  <li><strong>Columns:</strong> Program Services, Management &amp; General, Fundraising, Total</li>
+  <li><strong>Rows:</strong> Each expense line item (salaries, rent, supplies, etc.)</li>
+  <li>Generating the SFE also creates an <strong>SFE Allocation Workpaper</strong> for auditor support</li>
+  <li>Direct functional amounts are preclassified from the imported Class/Program field</li>
+  <li>Shared costs require a documented year-end basis and editable Program, M&amp;G, and Fundraising percentages</li>
+  <li>Incomplete or over-allocated workpaper rows remain <strong>Unallocated</strong> and mark the statement <strong>DRAFT</strong></li>
+  <li>The workpaper includes source GL amounts, allocation calculations, residuals, reviewer notes, and a tie-out</li>
+</ul>
+
+<h3>Statement of Cash Flows (SCF)</h3>
+<p>Shows how cash moved in and out of the organization.</p>
+<ul>
+  <li><strong>Operating Activities:</strong> Cash from day-to-day operations</li>
+  <li><strong>Investing Activities:</strong> Purchase/sale of fixed assets and investments</li>
+  <li><strong>Financing Activities:</strong> Loan proceeds/payments, restricted contributions</li>
+  <li>Net increase/decrease in cash reconciles to the balance sheet</li>
+</ul>
+
+<h3>Trial Balance</h3>
+<p><strong>Generate All</strong> always performs the required opening, period, and closing debit/credit controls in memory before producing statements. Click <strong>Detailed TB</strong> only when you need the optional 8-column account workpaper for internal review, auditors, or export:</p>
+<table>
+  <tr><th>Column</th><th>Description</th></tr>
+  <tr><td>Account Code</td><td>Account number from your chart of accounts</td></tr>
+  <tr><td>Account Name</td><td>Account description</td></tr>
+  <tr><td>Opening Dr / Opening Cr</td><td>Balance at start of period</td></tr>
+  <tr><td>Period Dr / Period Cr</td><td>Activity during the period</td></tr>
+  <tr><td>Closing Dr / Closing Cr</td><td>Balance at end of period</td></tr>
+</table>
+<p>The detailed workpaper uses pre-aggregated account values for speed, retains ordinary subtotal and control formulas for auditability, and supports account-level drilldown. Each column pair (Dr/Cr) should balance. Debit-normal accounts (Assets, Expenses) show in the Dr column; Credit-normal accounts (Liabilities, Net Assets, Revenue) show in the Cr column.</p>
+
+<h3>Board Summary</h3>
+<p>A concise executive summary designed for board meetings &mdash; key financial highlights on a single page.</p>
+
+<!-- 5. NPR FORMULAS -->
+<h2 id="npr-formulas">5. NPR Formulas</h2>
+<p>NPR formulas are live Excel functions that query your imported data. They recalculate automatically when you change parameters or refresh data. Use them to build <strong>any custom report</strong>.</p>
+
+<h3>NPR.GL &mdash; General Ledger Query</h3>
+<p>The primary formula. Returns account balances, debits, credits, or movements for any period.</p>
+
+<div class="formula-box">
+<code>=NPR.GL(accounts, type, [period], [grant], [fund], [class])</code>
+</div>
+
+<table>
+  <tr><th>Parameter</th><th>Required</th><th>Description</th><th>Examples</th></tr>
+  <tr><td><code>accounts</code></td><td>Yes</td><td>Account codes to query</td><td><code>"4000"</code>, <code>"5000-5399"</code>, <code>"5100,5200,5300"</code></td></tr>
+  <tr><td><code>type</code></td><td>Yes</td><td>What to return</td><td><code>"bal"</code>, <code>"dr"</code>, <code>"cr"</code>, <code>"mov"</code>, <code>"open"</code></td></tr>
+  <tr><td><code>period</code></td><td>No</td><td>Time period filter</td><td><code>"FY2025"</code>, <code>"2025-01"</code>, <code>"2025-Q1"</code>, <code>"YTD"</code></td></tr>
+  <tr><td><code>grant</code></td><td>No</td><td>Grant code filter</td><td><code>"GRANT-001"</code></td></tr>
+  <tr><td><code>fund</code></td><td>No</td><td>Fund code filter</td><td><code>"UNRE"</code>, <code>"TEMP"</code></td></tr>
+  <tr><td><code>class</code></td><td>No</td><td>Class/program filter</td><td><code>"PROG"</code>, <code>"MGMT"</code></td></tr>
+</table>
+
+<h3>Type Parameter Values</h3>
+<table>
+  <tr><th>Type</th><th>Returns</th><th>Use For</th></tr>
+  <tr><td><code>bal</code></td><td>Closing balance (all activity through end of period)</td><td>Balance sheet accounts, net asset balances</td></tr>
+  <tr><td><code>open</code></td><td>Opening balance (all activity before period starts)</td><td>Beginning balances, prior period comparisons</td></tr>
+  <tr><td><code>mov</code></td><td>Net movement during the period</td><td>Revenue/expense activity, changes</td></tr>
+  <tr><td><code>dr</code></td><td>Total debits in the period</td><td>Gross debits analysis</td></tr>
+  <tr><td><code>cr</code></td><td>Total credits in the period</td><td>Gross credits analysis</td></tr>
+</table>
+
+<h3>Period Formats</h3>
+<table>
+  <tr><th>Format</th><th>Example</th><th>Meaning</th></tr>
+  <tr><td>Fiscal Year</td><td><code>"FY2025"</code></td><td>Full fiscal year (Jul 2024 &ndash; Jun 2025 or Jan &ndash; Dec based on your data)</td></tr>
+  <tr><td>Calendar Year</td><td><code>"2025"</code></td><td>January 1 &ndash; December 31, 2025</td></tr>
+  <tr><td>Month</td><td><code>"2025-03"</code></td><td>March 1 &ndash; 31, 2025</td></tr>
+  <tr><td>Quarter</td><td><code>"2025-Q1"</code></td><td>January 1 &ndash; March 31, 2025</td></tr>
+  <tr><td>Date Range</td><td><code>"2025-01-01:2025-12-31"</code></td><td>Custom date range</td></tr>
+  <tr><td>Year-to-Date</td><td><code>"YTD"</code></td><td>Jan 1 of current year through today</td></tr>
+  <tr><td>Omitted</td><td>(leave blank)</td><td>All time &mdash; inception to date</td></tr>
+</table>
+
+<h3>Account Specification Formats</h3>
+<table>
+  <tr><th>Format</th><th>Example</th><th>Meaning</th></tr>
+  <tr><td>Single account</td><td><code>"4000"</code></td><td>Just account 4000</td></tr>
+  <tr><td>Range</td><td><code>"5000-5999"</code></td><td>All accounts from 5000 to 5999</td></tr>
+  <tr><td>List</td><td><code>"5100,5200,5300"</code></td><td>Accounts 5100, 5200, and 5300</td></tr>
+  <tr><td>Mixed</td><td><code>"4000-4999,5100"</code></td><td>Range 4000-4999 plus account 5100</td></tr>
+</table>
+
+<h3>Formula Examples</h3>
+<pre><code>=NPR.GL("1100", "bal", "FY2025")
+  Cash balance at end of FY2025
+
+=NPR.GL("4000-4999", "mov", "2025-03")
+  Total revenue for March 2025
+
+=NPR.GL("5000-5999", "mov", "2025-Q1")
+  Total expenses for Q1 2025
+
+=NPR.GL("5100", "mov", "FY2025", , "UNRE")
+  Salary expense for FY2025, Unrestricted fund only
+
+=NPR.GL("6100,6110,6120", "bal")
+  Combined balance of Rent + Utilities (all time)
+
+=ABS(NPR.GL("4000-4999", "mov", "FY2025"))
+  Absolute value of revenue (removes sign)</code></pre>
+
+<h3>NPR.Lookup &mdash; Utility Lookups</h3>
+<div class="formula-box">
+<code>=NPR.Lookup(key, type)</code>
+</div>
+<p>Returns metadata about your data. <code>type</code> can be <code>"account_name"</code>, <code>"grant_name"</code>, <code>"source"</code>, or <code>"refresh_time"</code>.</p>
+
+<h3>Using the Formula Wizard</h3>
+<p>Click <strong>Formula Wizard</strong> on the ribbon to build NPR.GL formulas interactively:</p>
+<ol>
+  <li>Select the accounts from a dropdown of your chart of accounts</li>
+  <li>Choose the return type (balance, movement, debits, credits)</li>
+  <li>Pick the period</li>
+  <li>Add optional filters (fund, class)</li>
+  <li>The wizard inserts the formula into the active cell</li>
+</ol>
+
+<!-- 6. DRILLDOWN -->
+<h2 id="drilldown">6. Transaction Drilldown</h2>
+<p>Double-click any <span style="color: #004d99; text-decoration: underline;">blue underlined number</span> on a report to see the individual transactions behind it.</p>
+
+<h3>How Drilldown Works</h3>
+<ol>
+  <li>A new worksheet tab is created (e.g., "Drilldown - Revenue")</li>
+  <li>All matching transactions are listed with full details: Date, Account, Description, Debit, Credit, Fund, Class, Vendor, etc.</li>
+  <li>The sheet includes a summary header showing what was drilled into</li>
+</ol>
+
+<div class="tip">
+  <strong>Tip:</strong> Drilldown works on both pre-generated reports and cells containing <code>NPR.GL</code> formulas. It traces the formula parameters to find the right transactions.
+</div>
+
+<h3>Drilldown on Formula Cells</h3>
+<p>If you double-click a cell that contains an <code>NPR.GL</code> formula (or a cell that references one, like <code>=ROUND(H8*0.35, 2)</code>), the drilldown traces the formula back to find the underlying <code>NPR.GL</code> call and shows those transactions.</p>
+
+<!-- 7. CHART OF ACCOUNTS -->
+<h2 id="chart-of-accounts">7. Chart of Accounts</h2>
+<p>Click <strong>Chart of Accounts</strong> (in the Data group) to view or export the chart of accounts extracted from your imported transactions.</p>
+<p>For financial-statement classification, use <strong>Account Map</strong> on the Nonprofit Reporting ribbon. Choose <strong>Review Suggested Classifications</strong>, correct any exceptions on the prefilled sheet, and then choose <strong>Approve Valid Suggestions</strong>. You do not need to approve every valid row individually.</p>
+<p>If a workbook contains older yellow suggestions after an add-in update, choose <strong>Refresh Unapproved Suggestions</strong>. This reapplies the latest rules without changing any rows already marked Approved.</p>
+<ul>
+  <li>Lists every unique account code and name found in your data</li>
+  <li>Shows account type classification (Asset, Liability, Equity, Revenue, Expense)</li>
+  <li>Useful for verifying your data before generating reports</li>
+  <li>Can be exported or printed for audit documentation</li>
+</ul>
+
+<!-- 8. COLUMN MAPPING -->
+<h2 id="column-mapping">8. Column Mapping &amp; Presets</h2>
+<p>Click <strong>Map Columns</strong> (in the Data group) to manage how your file's columns map to transaction fields.</p>
+
+<h3>The Mapping Dialog</h3>
+<p>The mapping dialog shows every transaction field and lets you select which column from your file corresponds to each one. Fields are organized into sections:</p>
+<ul>
+  <li><strong>Core Fields:</strong> Transaction ID, Date, Account Code, Account Name, Description, Debit, Credit, Amount</li>
+  <li><strong>Fund Accounting:</strong> Fund Code, Fund Name, Grant Code, Grant Name, Class/Program Code, Class/Program Name</li>
+  <li><strong>Vendor &amp; Employee:</strong> Vendor ID, Vendor Name, Employee ID, Employee Name</li>
+  <li><strong>Additional:</strong> Batch ID, Department, Project, Reference #</li>
+</ul>
+
+<h3>Custom Fields</h3>
+<p>Click <strong>+ Add Custom Field</strong> in the mapping dialog to map additional columns from your file that don't fit the standard fields. Custom fields are stored with your transactions and available for filtering.</p>
+
+<h3>Saving Presets</h3>
+<p>If you regularly import from the same system, your mapping is remembered. The next time you import the same file format, the wizard will pre-select the correct columns.</p>
+
+<!-- 9. TIPS -->
+<h2 id="tips">9. Tips &amp; Best Practices</h2>
+
+<h3>Working with Reports</h3>
+<ul>
+  <li><strong>Change the period:</strong> Edit the Start Date or End Date on Start Here. Existing standard reports and the SFE workpaper refresh together; an existing detailed TB is regenerated automatically.</li>
+  <li><strong>Force recalculate:</strong> Press <span class="key">F9</span> to recalculate all formulas after importing updated data.</li>
+  <li><strong>See account codes:</strong> Unhide column A (or column F on SOA) to reveal the account codes behind each line item.</li>
+  <li><strong>See formulas:</strong> Click any number on a report and look at the formula bar to see the <code>NPR.GL</code> formula.</li>
+  <li><strong>Copy reports:</strong> You can copy report sheets to other workbooks. The formulas will still work as long as the add-in is loaded and data is imported.</li>
+</ul>
+
+<h3>Building Custom Reports</h3>
+<ul>
+  <li>Use <code>NPR.GL</code> formulas on any blank sheet to build your own reports</li>
+  <li>Combine with standard Excel functions: <code>=ABS()</code>, <code>=ROUND()</code>, <code>=IF()</code>, <code>=SUM()</code></li>
+  <li>Reference period cells to make reports dynamic (e.g., <code>=NPR.GL("5000-5999", "mov", $B$2)</code> where B2 contains the period)</li>
+  <li>Use the Formula Wizard for complex queries</li>
+</ul>
+
+<h3>Performance</h3>
+<ul>
+  <li>The add-in handles <strong>500,000+ transactions</strong> efficiently</li>
+  <li>Import uses batch array writing (5,000 rows per batch) for maximum speed</li>
+  <li>Formula results are cached &mdash; repeated queries for the same period are instant</li>
+  <li>For very large datasets, use specific date ranges instead of "all time" for faster results</li>
+</ul>
+
+<h3>Data Quality</h3>
+<ul>
+  <li>Always confirm the required TB control passes after import; generate the detailed TB workpaper when account-level support is needed</li>
+  <li>Check the Chart of Accounts to ensure accounts are classified correctly</li>
+  <li>If the SOA bottom line doesn't match the SFP change in net assets, check for missing transactions or date range mismatches</li>
+</ul>
+
+<!-- 10. TROUBLESHOOTING -->
+<h2 id="troubleshooting">10. Troubleshooting</h2>
+
+<h3>Common Issues</h3>
+<table>
+  <tr><th>Problem</th><th>Solution</th></tr>
+  <tr>
+    <td>Add-in tab doesn't appear</td>
+    <td>Close Excel, then double-click the XLL file again. If prompted about security, click "Enable."</td>
+  </tr>
+  <tr>
+    <td>Formulas show <code>#N/A</code></td>
+    <td>Data hasn't been imported yet, or the Data Import sheet was deleted. Re-import your data.</td>
+  </tr>
+  <tr>
+    <td>Wrong totals on reports</td>
+    <td>Check that your date range covers the full period. Press <span class="key">F9</span> to force recalculate. Verify account code mappings.</td>
+  </tr>
+  <tr>
+    <td>Import is slow</td>
+    <td>Normal for 300K+ rows (1-2 minutes). The progress bar shows estimated time. Do not interact with Excel during import.</td>
+  </tr>
+  <tr>
+    <td>Trial Balance doesn't balance</td>
+    <td>Your source data may have unbalanced journal entries. Check the Debit/Credit totals on the Data Import sheet.</td>
+  </tr>
+  <tr>
+    <td>"32-bit" error on load</td>
+    <td>Close Excel and reopen the product through <strong>NonprofitReports-Portable.exe</strong>. The launcher will select the matching add-in automatically.</td>
+  </tr>
+  <tr>
+    <td>Security warning blocks the add-in</td>
+    <td>Verify that the EXE came from NonprofitReports and that its digital signature is valid. If the publisher is missing or unexpected, do not run it.</td>
+  </tr>
+  <tr>
+    <td>Formulas show <code>@</code> prefix</td>
+    <td>This is normal in Excel 365 with dynamic arrays. The formulas work correctly &mdash; the <code>@</code> is cosmetic.</td>
+  </tr>
+</table>
+
+<h3>Checking the File (Windows Security)</h3>
+<p>Before opening a downloaded copy:</p>
+<ol>
+  <li>Right-click <strong>NonprofitReports-Portable.exe</strong></li>
+  <li>Click <strong>Properties</strong></li>
+  <li>Open the <strong>Digital Signatures</strong> tab and confirm the NonprofitReports signature is valid</li>
+  <li>If a SHA-256 value was provided with your purchase, compare it with the downloaded file</li>
+  <li>Do not run the file if either check fails</li>
+</ol>
+
+<hr>
+
+<div class="footer">
+  <p>NonprofitReports Excel Add-in &mdash; User Guide v1.0</p>
+  <p>&copy; 2026 NonprofitReports. All rights reserved.</p>
+</div>
+
+</div>
+</body>
+</html>
