@@ -1,317 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DataScrub - Clean Messy Excel Data in Seconds</title>
-  <meta name="description" content="DataScrub is an Excel add-in with 55+ one-click data cleaning tools. Trim, split, deduplicate, reformat, and import data — no formulas, no VBA. $29/year.">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.6; }
-    a { color: #0d7377; text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* Nav */
-    .nav {
-      background: #0a5c5f; padding: 14px 20px; text-align: center;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .nav a { color: rgba(255,255,255,0.85); margin: 0 16px; font-size: 14px; font-weight: 600; }
-    .nav a:hover { color: white; text-decoration: none; }
-
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, #0d7377 0%, #14919b 40%, #0d7377 100%);
-      color: white; padding: 64px 20px 48px; text-align: center;
-    }
-    .hero .badge { display: inline-block; background: rgba(255,255,255,0.2); padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 16px; }
-    .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px; }
-    .hero p { font-size: 20px; max-width: 620px; margin: 0 auto 24px; opacity: 0.93; }
-    .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    /* Buttons */
-    .btn {
-      display: inline-block; padding: 14px 32px; border-radius: 8px; font-size: 16px;
-      font-weight: 700; cursor: pointer; border: none; text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); text-decoration: none; }
-    .btn-white { background: #fff; color: #0d7377; }
-    .btn-ghost { background: rgba(255,255,255,0.15); color: white; border: 2px solid rgba(255,255,255,0.5); }
-    .btn-green { background: #0d7377; color: white; }
-    .btn-dark { background: #1a1a2e; color: white; }
-
-    /* Screenshot banner */
-    .screenshot-banner {
-      max-width: 960px; margin: -28px auto 0; padding: 0 20px; position: relative; z-index: 10;
-    }
-    .screenshot-wrap {
-      border-radius: 10px; box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-      border: 2px solid rgba(255,255,255,0.3); overflow: hidden;
-      height: 240px; background: #f0f4f4;
-    }
-    .screenshot-wrap img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top;
-    }
-
-    /* Section basics */
-    .section { padding: 72px 20px; max-width: 1000px; margin: 0 auto; }
-    .section-alt { background: #f7fafa; }
-    .section h2 { font-size: 30px; text-align: center; margin-bottom: 12px; color: #0d7377; }
-    .section .lead { text-align: center; font-size: 17px; color: #555; margin-bottom: 44px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-    /* Feature grid */
-    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
-    .feature {
-      background: white; border-radius: 12px; padding: 24px; text-align: center;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e8efef;
-    }
-    .feature-icon { font-size: 36px; margin-bottom: 10px; }
-    .feature h3 { font-size: 17px; margin-bottom: 6px; color: #0d7377; }
-    .feature p { font-size: 14px; color: #555; }
-
-    /* Tool categories */
-    .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
-    .category { background: white; border-radius: 10px; padding: 20px; border-left: 4px solid #0d7377; }
-    .category h4 { font-size: 16px; color: #0d7377; margin-bottom: 8px; }
-    .category ul { list-style: none; font-size: 14px; color: #555; }
-    .category ul li { padding: 3px 0; }
-    .category ul li::before { content: "\2713 "; color: #0d7377; font-weight: bold; }
-
-    /* Steps */
-    .steps { display: flex; gap: 40px; flex-wrap: wrap; justify-content: center; }
-    .step { text-align: center; flex: 1; min-width: 180px; max-width: 240px; }
-    .step-num {
-      width: 48px; height: 48px; background: #0d7377; color: white; border-radius: 50%;
-      display: inline-flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 700; margin-bottom: 12px;
-    }
-    .step h3 { font-size: 17px; margin-bottom: 4px; }
-    .step p { font-size: 14px; color: #555; }
-
-    /* CTA */
-    .cta-bar {
-      background: linear-gradient(135deg, #0d7377 0%, #14919b 100%);
-      color: white; text-align: center; padding: 56px 20px;
-    }
-    .cta-bar h2 { font-size: 28px; margin-bottom: 8px; color: white; }
-    .cta-bar p { font-size: 16px; opacity: 0.9; margin-bottom: 24px; }
-    .cta-bar .buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    /* Footer */
-    .footer {
-      background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 20px;
-      text-align: center; font-size: 14px;
-    }
-    .footer-links { margin-bottom: 16px; }
-    .footer-links a { color: rgba(255,255,255,0.7); margin: 0 12px; }
-    .footer-links a:hover { color: white; }
-
-    /* Responsive */
-    @media (max-width: 700px) {
-      .hero h1 { font-size: 28px; }
-      .hero p { font-size: 17px; }
-      .section h2 { font-size: 24px; }
-      .steps { gap: 24px; }
-    }
-  </style>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DataScrub — 40+ practical Excel data-cleaning tools</title>
+  <meta name="description" content="Clean, transform, validate, and import messy Excel data with 40+ guided tools, previews, safeguards, and DataScrub Undo."><meta property="og:title" content="DataScrub — 40+ practical Excel data-cleaning tools"><meta property="og:description" content="Clean, validate, transform, and import spreadsheet data without leaving Excel."><meta property="og:image" content="https://getdatascrub.com/assets/og.png"><meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">GDS</span><span>GetDataScrub</span></a><button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>☰</button><nav class="site-nav" aria-label="Primary navigation" data-nav><a href="index.html">Home</a><a href="datascrub.html" aria-current="page">DataScrub</a><a href="nonprofitreports.html">NonprofitReports</a><a href="support.html">Guides</a><a class="nav-cta" href="downloads.html">Download trials</a></nav></div></header>
+  <main id="main">
+    <section class="hero hero-compact"><div class="container hero-grid">
+      <div><div class="eyebrow">DataScrub for Microsoft Excel</div><h1>Messy data in. <strong>Review-ready data out.</strong></h1><p class="hero-copy">A practical set of 40+ tools for the cleanup tasks that interrupt accounting and operations work—from whitespace and dates to deduplication, imports, and contact data.</p><div class="hero-actions"><a class="button button-light" href="downloads.html#datascrub">Download the 3-day trial</a><a class="button button-outline" href="guides/datascrub/">Read the complete guide</a></div><div class="trust-line"><span>No installation</span><span>Preview before applying</span><span>32-bit and 64-bit Excel</span></div></div>
+      <div class="product-visual"><div class="excel-window"><div class="window-bar" aria-hidden="true"><span class="window-dot"></span><span class="window-dot"></span><span class="window-dot"></span></div><img src="datascrub-ribbon.png" alt="DataScrub ribbon with workflow menus for text, numbers, dates, cleanup, contacts, and imports"></div><div class="visual-caption"><strong>A calmer ribbon</strong>Eight workflow groups keep a broad toolset discoverable without crowding Excel.</div></div>
+    </div></section>
 
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="datascrub.html">DataScrub</a>
-    <a href="nonprofitreports.html">NonprofitReports</a>
-    <a href="datascrub-tutorial.html">Tutorial</a>
-    <a href="support.html">Support</a>
-    <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" style="background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:6px;">Download</a>
-    <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" style="background:#fff;color:#0a5c5f;padding:6px 16px;border-radius:6px;">Buy</a>
-  </nav>
+    <section class="section"><div class="container">
+      <div class="section-heading"><div class="kicker">One focused tool for each cleanup problem</div><h2>From a quick repair to a repeatable cleanup pipeline.</h2><p>Select only the cells you intend to work on, choose the task, inspect the preview, then apply.</p></div>
+      <div class="feature-grid">
+        <article class="card feature-card"><div class="feature-icon">Aa</div><h3>Text</h3><p>Trim and normalize whitespace, change case, remove characters, split or join text, extract patterns, parse values, and create identifiers.</p></article>
+        <article class="card feature-card"><div class="feature-icon">123</div><h3>Numbers</h3><p>Calculate, round, scale, normalize, rank, convert units, repair numeric text, handle signs, and replace formula errors safely.</p></article>
+        <article class="card feature-card"><div class="feature-icon">CAL</div><h3>Dates</h3><p>Convert text to dates, extract date parts, calculate ages and differences, shift dates, and standardize date representations.</p></article>
+        <article class="card feature-card"><div class="feature-icon">CLR</div><h3>Cleanup</h3><p>Find true duplicate records, remove blanks with safeguards, standardize categories, clean HTML, and run multi-rule replacements.</p></article>
+        <article class="card feature-card"><div class="feature-icon">@</div><h3>Contacts</h3><p>Format phones, validate email syntax, split names and addresses, normalize countries, and clean web addresses.</p></article>
+        <article class="card feature-card"><div class="feature-icon">IN</div><h3>Imports</h3><p>Bring in quoted CSV and delimited text, extract digital PDF or Word content, combine files, and preview clipboard data.</p></article>
+        <article class="card feature-card"><div class="feature-icon">SCAN</div><h3>Health Scan</h3><p>Inspect the selected data for blanks, type inconsistencies, duplicates, formula issues, whitespace, and other quality signals.</p></article>
+        <article class="card feature-card"><div class="feature-icon">↶</div><h3>DataScrub Undo</h3><p>Reverse the most recent supported DataScrub operation while guarding against restoration into the wrong workbook or sheet.</p></article>
+      </div>
+    </div></section>
 
-  <!-- ===== HERO ===== -->
-  <header class="hero">
-    <div class="badge">$29/year &middot; 3-day free trial</div>
-    <h1>Fix messy Excel data in seconds</h1>
-    <p>55+ one-click cleaning tools, right inside your Excel ribbon. Select your data, pick a tool, done.</p>
-    <div class="hero-buttons">
-      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" class="btn btn-white">Download</a>
-      <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" class="btn btn-ghost">Buy License &mdash; $29/yr</a>
-    </div>
-  </header>
+    <section class="section section-soft"><div class="container split">
+      <div><div class="kicker">Previews that support judgment</div><h2>See what will change before changing the workbook.</h2><p class="lead">Feature dialogs use a consistent options-and-preview layout, clear change counts, responsive sizing, and guarded action buttons.</p><ul class="check-list"><li>Current and proposed values shown side by side</li><li>No-op actions remain disabled</li><li>Formula-preserving behavior where appropriate</li><li>Collision checks before writing into neighboring cells</li></ul></div>
+      <div class="screenshot-frame"><img src="guides/datascrub/guide-assets/remove-characters.png" alt="Remove Characters dialog showing options beside a before-and-after preview"><p class="mini-note">Remove Characters keeps the options and preview visible together.</p></div>
+    </div></section>
 
-  <!-- ===== SCREENSHOT ===== -->
-  <div class="screenshot-banner">
-    <div class="screenshot-wrap">
-      <img src="datascrub-ribbon.png" alt="DataScrub ribbon tab in Excel showing 55+ data cleaning tools">
-    </div>
-  </div>
+    <section class="section"><div class="container split">
+      <div class="screenshot-frame"><img src="guides/datascrub/guide-assets/advanced-replace.png" alt="Advanced Replace dialog with multiple replacement rules and preview"><p class="mini-note">Build and review ordered multi-rule replacements.</p></div>
+      <div><div class="kicker">For one-off and repeatable work</div><h2>Handle a single exception—or save the whole cleanup sequence.</h2><p class="lead">Use a specialist command for a specific problem, Quick Clean for common fixes, or build a reusable multi-step pipeline for recurring exports.</p><div class="stat-row"><div class="stat"><strong>8</strong><span>workflow groups</span></div><div class="stat"><strong>61</strong><span>guided dialogs</span></div><div class="stat"><strong>1</strong><span>portable file</span></div></div></div>
+    </div></section>
 
-  <!-- ===== FEATURES ===== -->
-  <section class="section" style="padding-top: 56px;">
-    <h2>Everything You Need to Clean Data</h2>
-    <p class="lead">Stop writing formulas and running VBA macros. Just click.</p>
+    <section class="section section-dark"><div class="container">
+      <div class="section-heading"><div class="kicker">Three-day trial</div><h2>The 72-hour period starts with the first feature—not the download.</h2><p>Opening the launcher or Excel does not start the trial. The first DataScrub feature begins a fixed server-confirmed 72-hour period. A signed local cache permits up to 24 hours offline between checks, never beyond expiry.</p></div>
+      <div class="card-grid three"><article class="card"><h3>Fixed expiry</h3><p>Reinstalling or deleting local files does not issue another trial for the same protected machine identity.</p></article><article class="card"><h3>Clock protection</h3><p>A material clock rollback requires online verification rather than silently extending the trial.</p></article><article class="card"><h3>Minimal identifiers</h3><p>The service stores hashed machine and installation identifiers—not workbook contents or raw hardware values.</p></article></div>
+    </div></section>
 
-    <div class="features">
-      <div class="feature">
-        <div class="feature-icon">&#9889;</div>
-        <h3>One-Click Cleaning</h3>
-        <p>Select your data, pick a tool, and watch it clean instantly. No formulas, no VBA, no hassle.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">&#128295;</div>
-        <h3>55+ Built-In Tools</h3>
-        <p>From trimming spaces to splitting names, formatting phones to removing duplicates — every tool you need.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">&#128196;</div>
-        <h3>Import Anything</h3>
-        <p>Pull data from CSV, PDF, Word documents, and text files directly into Excel. Clean on import.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">&#128274;</div>
-        <h3>Undo Everything</h3>
-        <p>Every operation can be undone. Preview changes before applying. Your data is always safe.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">&#127919;</div>
-        <h3>Works in Your Excel</h3>
-        <p>Installs as a native Excel ribbon tab. No separate app, no uploading data anywhere. 100% offline.</p>
-      </div>
-      <div class="feature">
-        <div class="feature-icon">&#128200;</div>
-        <h3>Data Health Scan</h3>
-        <p>Scan your data for issues — blanks, duplicates, inconsistent formats — and fix them all in one go.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== 55+ TOOLS ===== -->
-  <div class="section-alt">
-    <section class="section">
-      <h2>55+ Data Cleaning Tools</h2>
-      <p class="lead">Organized by category so you always find what you need.</p>
-      <div class="categories">
-        <div class="category">
-          <h4>Text Cleaning</h4>
-          <ul>
-            <li>Trim &amp; clean whitespace</li>
-            <li>Change case (UPPER, lower, Title)</li>
-            <li>Remove special characters</li>
-            <li>Find &amp; replace with regex</li>
-            <li>Extract text patterns</li>
-            <li>Split cells &amp; names</li>
-          </ul>
-        </div>
-        <div class="category">
-          <h4>Number Tools</h4>
-          <ul>
-            <li>Text to number conversion</li>
-            <li>Round &amp; format numbers</li>
-            <li>Leading zeros</li>
-            <li>Quick calculations</li>
-            <li>Percentage changes</li>
-            <li>Unit converter</li>
-          </ul>
-        </div>
-        <div class="category">
-          <h4>Date &amp; Time</h4>
-          <ul>
-            <li>Text to date parsing</li>
-            <li>Date math &amp; differences</li>
-            <li>Age calculator</li>
-            <li>Insert date parts</li>
-            <li>Timestamp insertion</li>
-            <li>Standardize date formats</li>
-          </ul>
-        </div>
-        <div class="category">
-          <h4>Data Quality</h4>
-          <ul>
-            <li>Remove duplicates (advanced)</li>
-            <li>Data health scan</li>
-            <li>Validate emails</li>
-            <li>Format phone numbers</li>
-            <li>Split addresses</li>
-            <li>Standardize values</li>
-          </ul>
-        </div>
-        <div class="category">
-          <h4>Import &amp; Transform</h4>
-          <ul>
-            <li>Import CSV files</li>
-            <li>Extract from PDF</li>
-            <li>Extract from Word</li>
-            <li>Merge multiple files</li>
-            <li>Paste &amp; clean</li>
-            <li>Change delimiters</li>
-          </ul>
-        </div>
-        <div class="category">
-          <h4>Productivity</h4>
-          <ul>
-            <li>Batch clean (multi-step)</li>
-            <li>Quick clean presets</li>
-            <li>Remove blanks</li>
-            <li>Fill gaps</li>
-            <li>Highlight by pattern</li>
-            <li>Insert sequences &amp; IDs</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ===== HOW IT WORKS ===== -->
-  <section class="section">
-    <h2>How It Works</h2>
-    <p class="lead"></p>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Download</h3>
-        <p>Download the .xll file and double-click to load it in Excel.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Select Data</h3>
-        <p>Highlight the cells or columns you want to clean.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Pick a Tool</h3>
-        <p>Click any tool from the DATA SCRUB ribbon tab.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Done!</h3>
-        <p>Clean data, instantly. No formulas or macros needed.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CTA ===== -->
-  <section class="cta-bar">
-    <h2>Try DataScrub free for 3 days</h2>
-    <p>No credit card. No signup. Just download and start cleaning.</p>
-    <div class="buttons">
-      <a href="https://ypuyaaglxvgpbpvsuila.supabase.co/storage/v1/object/public/datascrub-releases/v1.0.0/DataScrub64-packed.xll" class="btn btn-white">Download</a>
-      <a href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00" class="btn btn-ghost">Buy License &mdash; $29/yr</a>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="nonprofitreports.html">NonprofitReports</a>
-      <a href="support.html">Support</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms-of-service.html">Terms of Service</a>
-      <a href="mailto:jkisarale@gmail.com">Contact</a>
-    </div>
-    <p>&copy; 2026 GetDataScrub. All rights reserved.</p>
-  </footer>
-
+    <section class="section"><div class="container"><div class="section-heading"><div class="kicker">Pricing</div><h2>DataScrub — $29 per year</h2><p>Start with the complete three-day trial. No credit card is required to test the product.</p></div><div class="button-row" style="justify-content:center"><a class="button" href="downloads.html#datascrub">Download trial</a><a class="button button-secondary" href="https://buy.stripe.com/8x228t3X8b7QcGW1c2fYY00">Buy annual license</a></div></div></section>
+    <section class="cta-band"><div class="container cta-row"><div><h2>Want every command and safeguard?</h2><p>The searchable guide documents the complete DataScrub feature set.</p></div><a class="button button-light" href="guides/datascrub/">Open complete guide</a></div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">GDS</span><span>GetDataScrub</span></a><p>Portable Excel tools for data cleanup and nonprofit financial reporting.</p></div><div><h3>Products</h3><div class="footer-links"><a href="datascrub.html">DataScrub</a><a href="nonprofitreports.html">NonprofitReports</a><a href="downloads.html">Download trials</a></div></div><div><h3>Resources</h3><div class="footer-links"><a href="support.html">Guides and help</a><a href="privacy-policy.html">Privacy</a><a href="terms-of-service.html">Terms</a></div></div></div><div class="footer-bottom"><span>© <span data-year>2026</span> GetDataScrub. All rights reserved.</span><span>Microsoft Excel is a trademark of Microsoft Corporation.</span></div></div></footer>
+  <script src="assets/site.js"></script>
 </body>
 </html>

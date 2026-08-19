@@ -1,221 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Support - GetDataScrub</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif; color: #1a1a2e; line-height: 1.7; }
-    a { color: #0d7377; }
-
-    /* Nav */
-    .nav {
-      background: #0a5c5f; padding: 14px 20px; text-align: center;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    }
-    .nav a { color: rgba(255,255,255,0.85); margin: 0 16px; font-size: 14px; font-weight: 600; text-decoration: none; }
-    .nav a:hover { color: white; }
-
-    .header { background: linear-gradient(135deg, #0d7377, #14919b); color: white; padding: 48px 20px; text-align: center; }
-    .header h1 { font-size: 36px; margin-bottom: 8px; }
-    .header p { font-size: 17px; opacity: 0.9; }
-
-    .content { max-width: 780px; margin: 0 auto; padding: 48px 20px; }
-    h2 { font-size: 24px; color: #0d7377; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e0eded; }
-    h2:first-of-type { margin-top: 0; }
-    h3 { font-size: 18px; color: #1a1a2e; margin-bottom: 8px; }
-    p, li { font-size: 15px; color: #333; margin-bottom: 12px; }
-    ul, ol { margin-left: 20px; margin-bottom: 16px; }
-    code { background: #f0f4f4; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
-
-    .contact-card {
-      background: #f7fafa; border: 1px solid #e0eded; border-radius: 12px;
-      padding: 32px; margin: 24px 0; text-align: center;
-    }
-    .contact-card h3 { font-size: 18px; color: #0d7377; margin-bottom: 12px; }
-    .contact-card .email { font-size: 20px; font-weight: 700; }
-
-    .help-section {
-      background: #f7fafa; border-radius: 10px; padding: 24px; margin: 16px 0;
-      border-left: 4px solid #0d7377;
-    }
-    .help-section h3 { font-size: 17px; color: #0d7377; margin-bottom: 8px; }
-
-    .product-tab {
-      display: inline-block; padding: 8px 20px; border-radius: 8px 8px 0 0;
-      font-size: 14px; font-weight: 700; cursor: default;
-      background: #0d7377; color: white; margin-right: 4px;
-    }
-    .product-tab.muted { background: #e0eded; color: #555; }
-
-    .footer {
-      background: #1a1a2e; color: rgba(255,255,255,0.6); padding: 40px 20px;
-      text-align: center; font-size: 14px;
-    }
-    .footer-links { margin-bottom: 16px; }
-    .footer-links a { color: rgba(255,255,255,0.7); margin: 0 12px; text-decoration: none; }
-    .footer-links a:hover { color: white; }
-  </style>
-</head>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GetDataScrub guides and self-service help</title><meta name="description" content="Complete product guides, portable-launcher instructions, troubleshooting, and security information for DataScrub and NonprofitReports."><meta property="og:image" content="https://getdatascrub.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><link rel="stylesheet" href="assets/site.css"></head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html"><span class="brand-mark">GDS</span><span>GetDataScrub</span></a><button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-nav-toggle>☰</button><nav class="site-nav" aria-label="Primary navigation" data-nav><a href="index.html">Home</a><a href="datascrub.html">DataScrub</a><a href="nonprofitreports.html">NonprofitReports</a><a href="support.html" aria-current="page">Guides</a><a class="nav-cta" href="downloads.html">Download trials</a></nav></div></header>
+  <main id="main">
+    <section class="hero hero-compact"><div class="container hero-grid" style="grid-template-columns:1fr;max-width:900px;text-align:center"><div><div class="eyebrow" style="justify-content:center">Guides and self-service help</div><h1 style="margin-inline:auto">Everything needed to <strong>open, learn, and verify</strong> the tools.</h1><p class="hero-copy" style="margin-inline:auto">Start with a quick guide or open the full searchable reference for every feature and report.</p></div></div></section>
+    <section class="section"><div class="container"><div class="product-grid">
+      <article class="card product-card"><div class="kicker">DataScrub</div><h2 style="font-size:32px">Complete feature guide</h2><p>Documents all ribbon groups, commands, dialogs, previews, output behavior, Undo safeguards, imports, portable mode, and troubleshooting—with interface screenshots.</p><ul><li>Search every documented command</li><li>See feature-specific cautions and output behavior</li><li>Review example cleanup workflows</li><li>Understand portable runtime and Undo</li></ul><a class="button" href="guides/datascrub/">Open DataScrub guide</a></article>
+      <article class="card product-card npr"><div class="kicker">NonprofitReports</div><h2 style="font-size:32px">Complete reporting guide</h2><p>Covers the full GL-to-report workflow, Start Here sheet, mappings, every statement, the SFE allocation workpaper, formulas, drill-down, and final checks.</p><ul><li>Import and reconcile the general ledger</li><li>Review financial classifications and allocations</li><li>Generate SFP, SOA, SFE, SCF, and TB</li><li>Troubleshoot loading and reporting issues</li></ul><a class="button" href="guides/nonprofitreports/">Open NonprofitReports guide</a></article>
+    </div></div></section>
 
-  <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="datascrub.html">DataScrub</a>
-    <a href="nonprofitreports.html">NonprofitReports</a>
-    <a href="datascrub-tutorial.html">Tutorial</a>
-    <a href="support.html">Support</a>
-    <a href="index.html#pricing" style="background:rgba(255,255,255,0.15);padding:6px 16px;border-radius:6px;">Download</a>
-    <a href="index.html#pricing" style="background:#fff;color:#0a5c5f;padding:6px 16px;border-radius:6px;">Buy</a>
-  </nav>
+    <section class="section section-soft"><div class="container"><div class="section-heading"><div class="kicker">Quick start</div><h2>Open either product in five steps.</h2></div><div class="steps"><article class="step"><h3>Save the EXE</h3><p>Download the one-file portable launcher from this website.</p></article><article class="step"><h3>Open in Excel</h3><p>Launch the file and select the large Open in Excel button.</p></article><article class="step"><h3>Use the ribbon</h3><p>Open or create a workbook, then select the new product tab.</p></article></div></div></section>
 
-  <header class="header">
-    <h1>Support</h1>
-    <p>Installation guides, license help, and troubleshooting for both products.</p>
-  </header>
-
-  <div class="content">
-
-    <div class="contact-card">
-      <h3>Need help? Contact us</h3>
-      <p class="email"><a href="mailto:jkisarale@gmail.com">jkisarale@gmail.com</a></p>
-      <p>We typically respond within 24 hours.</p>
-    </div>
-
-    <!-- ========== DATASCRUB ========== -->
-    <h2>DataScrub — Installation</h2>
-
-    <div class="help-section">
-      <h3>First-time setup</h3>
-      <ol>
-        <li>Download the <code>DataScrub64-packed.xll</code> file</li>
-        <li>Double-click the file to load it in Excel</li>
-        <li>You should see a <strong>DATA SCRUB</strong> tab in the Excel ribbon</li>
-      </ol>
-    </div>
-
-    <div class="help-section">
-      <h3>Make it load automatically every time</h3>
-      <ol>
-        <li>In Excel, go to <strong>File > Options > Add-ins</strong></li>
-        <li>At the bottom, set "Manage" to <strong>Excel Add-ins</strong> and click <strong>Go</strong></li>
-        <li>Click <strong>Browse</strong> and select the DataScrub .xll file</li>
-        <li>Click OK. DataScrub will now load every time you open Excel.</li>
-      </ol>
-    </div>
-
-    <h2>DataScrub — License Activation</h2>
-
-    <div class="help-section">
-      <h3>How to activate</h3>
-      <ol>
-        <li>Click the <strong>License</strong> button on the DATA SCRUB ribbon tab</li>
-        <li>Enter your license key (format: <code>DS-XXXXX-XXXXX-XXXXX</code>)</li>
-        <li>Click <strong>Activate</strong>. Your license is now active on this device.</li>
-      </ol>
-    </div>
-
-    <div class="help-section">
-      <h3>Switching devices</h3>
-      <p>Each license works on one device. To move it to a new computer:</p>
-      <ol>
-        <li>On your old computer: click <strong>License</strong> on the ribbon, then click <strong>Deactivate</strong></li>
-        <li>On your new computer: install DataScrub and enter the same license key</li>
-      </ol>
-    </div>
-
-    <!-- ========== NONPROFITREPORTS ========== -->
-    <h2>NonprofitReports — Installation</h2>
-
-    <div class="help-section">
-      <h3>First-time setup</h3>
-      <ol>
-        <li>Download the <code>NonprofitReports64-packed.xll</code> file</li>
-        <li>Double-click the file to load it in Excel</li>
-        <li>You should see an <strong>NPR REPORT PACK</strong> tab in the Excel ribbon</li>
-      </ol>
-    </div>
-
-    <div class="help-section">
-      <h3>Make it load automatically every time</h3>
-      <ol>
-        <li>In Excel, go to <strong>File > Options > Add-ins</strong></li>
-        <li>At the bottom, set "Manage" to <strong>Excel Add-ins</strong> and click <strong>Go</strong></li>
-        <li>Click <strong>Browse</strong> and select the NonprofitReports .xll file</li>
-        <li>Click OK. NonprofitReports will now load every time you open Excel.</li>
-      </ol>
-    </div>
-
-    <h2>NonprofitReports — License Activation</h2>
-
-    <div class="help-section">
-      <h3>How to activate</h3>
-      <ol>
-        <li>Click the <strong>License</strong> button on the NPR REPORT PACK ribbon tab</li>
-        <li>Enter your license key (format: <code>NPR-XXXXX-XXXXX-XXXXX</code>)</li>
-        <li>Click <strong>Activate</strong>. Your license is now active on this device.</li>
-      </ol>
-    </div>
-
-    <div class="help-section">
-      <h3>Switching devices</h3>
-      <p>Each license works on one device. To move it to a new computer:</p>
-      <ol>
-        <li>On your old computer: click <strong>License</strong> on the ribbon, then click <strong>Deactivate</strong></li>
-        <li>On your new computer: install NonprofitReports and enter the same license key</li>
-      </ol>
-    </div>
-
-    <!-- ========== COMMON ISSUES ========== -->
-    <h2>Common Issues</h2>
-
-    <div class="help-section">
-      <h3>Ribbon tab not showing in Excel</h3>
-      <ul>
-        <li>Make sure you're using <strong>Excel 2016 or later</strong> on Windows (64-bit)</li>
-        <li>Try double-clicking the .xll file again</li>
-        <li>Check <strong>File > Options > Add-ins</strong> to see if it's listed as "Disabled". If so, enable it.</li>
-        <li>If you have both 32-bit and 64-bit Excel installed, make sure you're using the matching .xll file</li>
-      </ul>
-    </div>
-
-    <div class="help-section">
-      <h3>License key not working</h3>
-      <ul>
-        <li>Make sure you're connected to the internet (required for first activation)</li>
-        <li>DataScrub keys start with <code>DS-</code>, NonprofitReports keys start with <code>NPR-</code></li>
-        <li>If your subscription has expired, you'll need to renew at <a href="index.html#pricing">getdatascrub.com</a></li>
-      </ul>
-    </div>
-
-    <div class="help-section">
-      <h3>"License already activated on another device"</h3>
-      <p>Each license key is bound to one device. To switch:</p>
-      <ol>
-        <li>Open Excel on the <strong>old computer</strong></li>
-        <li>Go to the product's ribbon tab and click <strong>License</strong></li>
-        <li>Click <strong>Deactivate</strong> to free the device slot</li>
-        <li>Now activate on your new computer</li>
-      </ol>
-    </div>
-
-    <h2>Refund Policy</h2>
-    <p>We offer a <strong>14-day money-back guarantee</strong> on both products. If the tool doesn't meet your needs, email us within 14 days of purchase and we'll issue a full refund. No questions asked.</p>
-
-  </div>
-
-  <footer class="footer">
-    <div class="footer-links">
-      <a href="index.html">Home</a>
-      <a href="datascrub.html">DataScrub</a>
-      <a href="nonprofitreports.html">NonprofitReports</a>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms-of-service.html">Terms of Service</a>
-    </div>
-    <p>&copy; 2026 GetDataScrub. All rights reserved.</p>
-  </footer>
-
+    <section class="section"><div class="container"><div class="section-heading"><div class="kicker">Common questions</div><h2>Fast answers before deeper troubleshooting.</h2></div><div class="faq">
+      <details open><summary>The add-in tab does not appear or shows an older layout</summary><p>Close every Excel window—including background Excel processes—then reopen the newest portable launcher and load the add-in again. Excel caches ribbon layouts while any Excel process remains open.</p></details>
+      <details><summary>Which file should I choose for 32-bit or 64-bit Excel?</summary><p>You do not need to choose. The portable launcher contains both add-in architectures and detects the installed Excel architecture automatically.</p></details>
+      <details><summary>Does downloading or opening the launcher start the trial?</summary><p>No. The trial starts when the first licensed feature is used and confirmed online: 72 hours for DataScrub and seven days for NonprofitReports.</p></details>
+      <details><summary>Does my workbook get uploaded?</summary><p>No. Workbook data is processed locally in Excel. Online requests are used for trial, license, and update status and use protected identifiers rather than workbook content.</p></details>
+      <details><summary>Why does Windows say the app is unrecognized?</summary><p>The current early-access launchers are awaiting commercial publisher signing. Follow your organization’s software policy. Do not bypass a block imposed by your employer; use the published SHA-256 value or request IT review.</p></details>
+      <details><summary>Can I use the add-ins on Excel for Mac or Excel Online?</summary><p>No. These releases require desktop Microsoft Excel 2016 or later on Windows.</p></details>
+    </div></div></section>
+    <section class="cta-band"><div class="container cta-row"><div><h2>Ready to open a trial?</h2><p>Both products are delivered as a single portable file.</p></div><a class="button button-light" href="downloads.html">Go to downloads</a></div></section>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer-grid"><div><a class="brand" href="index.html"><span class="brand-mark">GDS</span><span>GetDataScrub</span></a><p>Portable Excel tools for data cleanup and nonprofit financial reporting.</p></div><div><h3>Products</h3><div class="footer-links"><a href="datascrub.html">DataScrub</a><a href="nonprofitreports.html">NonprofitReports</a><a href="downloads.html">Download trials</a></div></div><div><h3>Resources</h3><div class="footer-links"><a href="support.html">Guides and help</a><a href="privacy-policy.html">Privacy</a><a href="terms-of-service.html">Terms</a></div></div></div><div class="footer-bottom"><span>© <span data-year>2026</span> GetDataScrub. All rights reserved.</span><span>Microsoft Excel is a trademark of Microsoft Corporation.</span></div></div></footer>
+  <script src="assets/site.js"></script>
 </body>
 </html>
