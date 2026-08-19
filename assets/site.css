@@ -86,18 +86,13 @@ h3 { margin-bottom: 10px; font-size: 21px; letter-spacing: -.02em; }
 .visual-caption { position: absolute; left: -28px; bottom: -28px; width: min(320px, 82%); padding: 17px 19px; border: 1px solid rgba(255,255,255,.32); border-radius: 13px; color: var(--navy-950); background: rgba(255,255,255,.96); box-shadow: var(--shadow-sm); font-size: 14px; }
 .visual-caption strong { display: block; margin-bottom: 3px; color: var(--teal-700); font-size: 15px; }
 
-.home-hero-grid { position: relative; z-index: 2; min-height: 650px; padding-block: 72px 68px; display: grid; grid-template-columns: minmax(0, .95fr) minmax(470px, 1.05fr); align-items: center; gap: 70px; }
+.home-hero-grid { position: relative; z-index: 2; min-height: 620px; padding-block: 72px 68px; display: grid; grid-template-columns: minmax(0, .95fr) minmax(470px, 1.05fr); align-items: center; gap: 70px; }
 .home-hero h1 { max-width: 650px; font-size: clamp(44px, 4.7vw, 66px); }
 .home-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .trial-details-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 17px; color: #b9ebe8; font-size: 14px; font-weight: 700; text-decoration: none; }
 .trial-details-link:hover { color: #fff; }
-.practitioner-proof { max-width: 580px; margin-top: 27px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,.16); display: flex; align-items: center; gap: 13px; }
-.practitioner-mark { width: 43px; height: 43px; flex: none; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.25); border-radius: 50%; color: #fff; background: rgba(255,255,255,.1); font-size: 13px; font-weight: 850; }
-.practitioner-proof p { margin: 0; line-height: 1.35; }
-.practitioner-proof strong, .practitioner-proof span { display: block; }
-.practitioner-proof strong { color: #fff; font-size: 14px; }
-.practitioner-proof p span { margin-top: 3px; color: rgba(255,255,255,.66); font-size: 13px; }
-.home-hero .trust-line { margin-top: 20px; gap: 10px 20px; font-size: 13px; }
+.experience-note { margin: 20px 0 0; color: rgba(255,255,255,.7); font-size: 13px; }
+.home-hero .trust-line { margin-top: 14px; gap: 10px 20px; font-size: 13px; }
 .home-product-showcase { position: relative; padding-bottom: 30px; }
 .home-ribbon-card { overflow: hidden; border: 1px solid rgba(255,255,255,.24); border-radius: 16px; background: #fff; box-shadow: 0 26px 60px rgba(2,20,38,.32); transform: rotate(1deg); }
 .home-ribbon-card + .home-ribbon-card { margin: -18px 0 0 48px; transform: rotate(-1deg); }
